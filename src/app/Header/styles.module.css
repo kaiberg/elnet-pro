@@ -1,0 +1,33 @@
+.mainwrapper {
+    background-color: var(--background-color);
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4rem;
+}
+
+.logo {
+    margin-right: 2rem;
+}
+
+.link {
+    padding: 0.5rem;
+    color: black;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+}
+
+.link.selected {
+    font-weight: 600;
+}
+
+.userprofile {
+    border-radius: 50%;
+    border: 1px solid black;
+}
