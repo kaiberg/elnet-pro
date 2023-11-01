@@ -27,7 +27,7 @@ export function Header({ slug }: HeaderProps) {
 
                 </div>
                 {/* login / controls */}
-                <div className=''>
+                <div className={styles.right_side}>
                     <Image width={48} height={48} src={''} alt='lightmode' />
                     <Image width={48} height={48} src={''} alt='profile' className={styles.userprofile} />
                 </div>
