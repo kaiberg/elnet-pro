@@ -20,7 +20,7 @@
 
 .links {
     display: flex;
-    align-items: center;
+    align-items: baseline;
 }
 
 .link.selected {
@@ -30,4 +30,11 @@
 .userprofile {
     border-radius: 50%;
     border: 1px solid black;
+}
+
+.right_side {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 0.5rem;
 }
