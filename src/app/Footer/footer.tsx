@@ -19,7 +19,6 @@ export default function Footer() {
                     <div className={styles.page_links_wrapper}>
                         <a>Latest</a>
                         <a>Parks</a>
-
                     </div>
                 </div>
                 <div>

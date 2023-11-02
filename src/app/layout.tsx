@@ -3,7 +3,9 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Footer from './Footer/footer'
 import { Header } from './Header/header'
-import { SetColorsByTheme } from './Theme/setColorsByTheme'
+import { FallbackStyles, SetColorsByTheme } from './Theme/setColorsByTheme'
+import { ThemContextProvider } from './Theme/Theme'
+import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,14 +21,16 @@ export default function RootLayout({
 }) {
 
   return (
-    <html lang="en">
+    <html lang="en" style={FallbackStyles() as React.CSSProperties} suppressHydrationWarning>
       <body className={inter.className}>
-        <SetColorsByTheme/>
-        <Header slug='' />
-        <main>
-          {children}
-        </main>
-        <Footer />
+        <SetColorsByTheme />
+        <ThemContextProvider>
+          <Header slug='' />
+          <main>
+            {children}
+          </main>
+          <Footer />
+        </ThemContextProvider>
       </body>
     </html>
   )

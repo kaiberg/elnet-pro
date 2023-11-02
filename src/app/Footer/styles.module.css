@@ -5,6 +5,10 @@
     flex-direction: column;
 }
 
+.normal_copyright, .mobile_copyright {
+    color: var(--color-gray-700);
+}
+
 .normal_copyright {
     display: none;
 }
@@ -27,6 +31,10 @@
 
 .links_wrapper {
     display: flex;
+}
+
+.links_wrapper > div > p {
+    color: var(--color-gray-700);
 }
 
 .page_links_wrapper {

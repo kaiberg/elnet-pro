@@ -7,6 +7,7 @@ export type HeaderProps = {
 }
 import Image from 'next/image'
 import Logo from '@/UIComponents/Logo/logo';
+import DarkToggle from '@/UIComponents/DarkToggle/DarkToggle';
 
 
 export function Header({ slug }: HeaderProps) {
@@ -28,7 +29,7 @@ export function Header({ slug }: HeaderProps) {
                 </div>
                 {/* login / controls */}
                 <div className={styles.right_side}>
-                    <Image width={48} height={48} src={''} alt='lightmode' />
+                    <DarkToggle/>
                     <Image width={48} height={48} src={''} alt='profile' className={styles.userprofile} />
                 </div>
             </header>
