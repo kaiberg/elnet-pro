@@ -31,16 +31,17 @@
 
 .links_wrapper {
     display: flex;
+    justify-content: space-around;
 }
 
-.links_wrapper > div > p {
+.links_wrapper>div>p {
     color: var(--color-gray-700);
 }
 
 .page_links_wrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 12.5rem;
+    grid-template-columns: 1fr;
+    width: 9rem;
     gap: 6px;
     padding-top: 12px;
 }
@@ -68,5 +69,14 @@
 
     .normal_copyright {
         display: block;
+    }
+
+    .page_links_wrapper {
+        grid-template-columns: 1fr 1fr;
+        width: 12.5rem;
+    }
+
+    .links_wrapper {
+        justify-content: start;
     }
 }

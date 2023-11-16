@@ -1,5 +1,5 @@
 import { useThemeContext } from '@/CustomHooks/useThemeContext';
-import { ThemeContext } from '@/app/Theme/Theme';
+import { ThemeContext } from '@/UI/Tokens/Theme/Theme';
 import React from 'react';
 
 export default function DarkToggle() {

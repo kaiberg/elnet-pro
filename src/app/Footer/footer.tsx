@@ -1,4 +1,4 @@
-import Logo from '@/UIComponents/Logo/logo';
+import Logo from '@/UI/Components/Logo/logo';
 import globalStyles from '@/app/styles.module.css';
 import styles from './styles.module.css';
 
@@ -10,7 +10,7 @@ export default function Footer() {
                 <div className={styles.logo}>
                     <Logo />
                 </div>
-                <p className={styles.normal_copyright}>© 2023</p>
+                <p className={styles.normal_copyright}>© 2023. All Rights Reserved.</p>
             </div>
             {/* links */}
             <div className={styles.links_wrapper}>

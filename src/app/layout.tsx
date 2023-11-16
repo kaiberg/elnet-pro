@@ -1,10 +1,11 @@
 import './globals.css'
+import '@/UI/Tokens/Typography/variables.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Footer from './Footer/footer'
 import { Header } from './Header/header'
-import { FallbackStyles, SetColorsByTheme } from './Theme/setColorsByTheme'
-import { ThemContextProvider } from './Theme/Theme'
+import { FallbackStyles, SetColorsByTheme } from '@/UI/Tokens/Theme/setColorsByTheme'
+import { ThemContextProvider } from '@/UI/Tokens/Theme/Theme'
 import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })

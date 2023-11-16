@@ -6,8 +6,8 @@ export type HeaderProps = {
     slug: string
 }
 import Image from 'next/image'
-import Logo from '@/UIComponents/Logo/logo';
-import DarkToggle from '@/UIComponents/DarkToggle/DarkToggle';
+import Logo from '@/UI/Components/Logo/logo';
+import DarkToggle from '@/UI/Components/DarkToggle/DarkToggle';
 
 
 export function Header({ slug }: HeaderProps) {
@@ -19,11 +19,11 @@ export function Header({ slug }: HeaderProps) {
         <div className={styles.mainwrapper}>
             <header className={`${globalStyles.maxwidth_wrapper} ${styles.wrapper}`}>
                 {/* icon, links */}
-                <div className={styles.links}>
+                <div className={styles.left_side}>
                     <Logo className={styles.logo} />
                     <nav className={styles.links}>
                         <a className={styles.link}>Overview</a>
-                        <a className={styles.link}>Overview</a>
+                        <a className={styles.link} href='/parks'>Parks</a>
                     </nav>
 
                 </div>

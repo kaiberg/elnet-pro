@@ -1,0 +1,29 @@
+.header {
+    font-size: clamp(4rem, 8vw, 20rem);
+}
+
+.information {
+    font-size: clamp(2rem, 2vw, 20rem);
+}
+
+.go_back {
+    margin-block-start: 6rem;
+    display: inline-flex;
+    font-size: clamp(1.5rem, 1vw, 20rem);
+    color: var(--color-primary)
+}
+
+.wrapper {
+    margin-block-start: 10vh;
+    margin-block-end: 10vh;
+}
+
+@media (--MOBILE) {
+    .wrapper {
+        --y-spacing: 40vh;
+        --y-max: 32rem;
+        --y-half: max(calc(var(--y-spacing) / 2), calc(var(--y-max) / 2));
+        margin-block-end: var(--y-half);
+        margin-block-start: var(--y-half);
+    }
+}
