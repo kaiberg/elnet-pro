@@ -9,17 +9,20 @@
     height: 4rem;
 }
 
-.logo {
-    margin-right: 2rem;
-}
-
 .link {
     padding: 0.5rem;
 }
 
 .links {
-    display: flex;
+    display: none;
+}
+
+.links, .left_side {
     align-items: baseline;
+}
+
+.left_side {
+    display: flex;
 }
 
 .link.selected {
@@ -32,7 +35,17 @@
 }
 
 .right_side {
-    display: flex;
+    display: none;
     justify-content: flex-end;
     gap: 0.5rem;
+}
+
+@media (--MOBILE) {
+    .links {
+        display: flex;
+    }
+
+    .right_side {
+        display: flex;
+    }
 }

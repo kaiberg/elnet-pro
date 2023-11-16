@@ -1,0 +1,82 @@
+.title {
+    word-wrap: break-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+}
+
+.headline1 {
+    font-size: calc(6rem - (var(--font-discrepancy) * 2)); /* 96px */
+    letter-spacing: -1.5px;
+    font-weight: var(--font-weight-light);
+}
+
+.headline2 {
+    font-size: calc(3.75rem - var(--font-discrepancy)); /* 60px */
+    letter-spacing: -0.5px;
+    font-weight: var(--font-weight-light);
+}
+
+.headline3 {
+    font-size: calc(3rem - var(--font-discrepancy)); /* 48px */
+    letter-spacing: 0px;
+    font-weight: var(--font-weight-regular);
+}
+
+.headline4 {
+    font-size: calc(2.125rem - var(--font-discrepancy)); /* 34px */
+    letter-spacing: 0.25px;
+    font-weight: var(--font-weight-regular);
+}
+
+.headline5 {
+    font-size: calc(1.5rem - var(--font-discrepancy)); /* 24px */
+    letter-spacing: 0px;
+    font-weight: var(--font-weight-regular);
+}
+
+.headline6 {
+    font-size: 1.25rem; /* 20px */
+    letter-spacing: 0.15px;
+    font-weight: var(--font-weight-medium);
+}
+
+/*default font size is 16px so no need to declare it*/
+
+.subtitle1 {
+    font-size: 1rem; /* 16px */
+    letter-spacing: 0.15px;
+    font-weight: var(--font-weight-regular);
+}
+
+.subtitle2 {
+    font-size: 0.875rem; /* 14px */
+    letter-spacing: 0.1px;
+    font-weight: var(--font-weight-medium);
+}
+
+.body2 {
+    font-size: 0.875rem; /* 14px */
+    letter-spacing: 0.25px;
+    font-weight: var(--font-weight-regular);
+}
+
+.button {
+    font-size: 0.875rem; /* 14px */
+    text-transform: uppercase;
+    letter-spacing: 1.25px;
+    font-weight: var(--font-weight-medium);
+}
+
+.caption {
+    font-size: 0.75rem; /* 12px */
+    line-clamp: 3; /* max 3 lines */
+    letter-spacing: 0.4px;
+    font-weight: var(--font-weight-regular);
+}
+
+.overline {
+    font-size: 0.625rem; /* 10px */
+    letter-spacing: 1.5px;
+    font-weight: var(--font-weight-regular);
+}
+

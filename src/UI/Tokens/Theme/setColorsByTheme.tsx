@@ -1,4 +1,5 @@
-import { KEYS, COLORS, WEIGHTS } from "./constants";
+import Script from "next/script";
+import { KEYS, COLORS } from "./constants";
 
 export function setRootColors(colors : any, colorMode : string, root: HTMLElement) {
   setColorsByTheme(true)?.(colors, colorMode, root);
@@ -19,6 +20,8 @@ function setColorsByTheme(getFN?: boolean) {
       }
     });
   }
+
+  console.log('hi');
 
   if(getFN) {
     return setRootColors;
@@ -62,7 +65,7 @@ export const SetColorsByTheme = () => {
 
   // calledFunction = Terser.minify(calledFunction).code;
 
-  return <script dangerouslySetInnerHTML={{ __html: calledFunction }}/>;
+  return <script id="theme-hydration" dangerouslySetInnerHTML={{ __html: calledFunction }}/>;
 };
 
 /**

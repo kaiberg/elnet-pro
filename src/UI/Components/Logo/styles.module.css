@@ -1,0 +1,11 @@
+.logo {
+    font-size: 1.5rem;
+    color: #C0C0C0;
+    /* prevent logo from spanning multiple lines */
+    display: flex;
+    word-break: keep-all;
+    /* background: linear-gradient(#000, #50828c, #37403d, #b5a6a5, #37403d, #fff, #b5a6a5, #37403d, #b5a6a5, #37403d, #fff);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    mix-blend-mode:lighten; */
+}
