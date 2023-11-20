@@ -1,4 +1,4 @@
-import { ThemeContext } from "@/UI/Tokens/Theme/Theme";
+import { ThemeContext } from "@/UI/Tokens/Theme";
 import React from 'react';
 
 export function useThemeContext() {
