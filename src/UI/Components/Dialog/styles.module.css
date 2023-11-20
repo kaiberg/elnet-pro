@@ -1,0 +1,14 @@
+.overlay {
+    background: rgba(0,0,0,0.33);
+    inset: 0;
+    overflow: auto;
+    position: fixed;
+}
+
+.content {
+    width: 50vw;
+    margin: 10vh auto;
+    background: white;
+    padding: 2rem;
+    outline: none;
+}

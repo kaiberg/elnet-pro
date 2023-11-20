@@ -1,7 +1,8 @@
 'use client'
 import React from "react";
-import { KEYS, COLORS } from "./constants";
-import { setRootColors } from "./setColorsByTheme";
+import {COLORS, KEYS} from "@/UI/Tokens/Theme/constants";
+import {setRootColors} from "@/UI/Tokens/Theme/setColorsByTheme";
+// export * from './constants';
 
 export const ThemeContext = React.createContext<{ colorMode: string | undefined; setColorMode: (value: string) => void; } | undefined>(undefined);
 
@@ -9,7 +10,7 @@ type props = {
     children: React.ReactNode
 }
 
-export function ThemContextProvider({children} : props) {
+export default function ThemContextProvider({children} : props) {
     const [colorMode, setRawColorMode] = React.useState<undefined | string>(undefined);
     
     React.useEffect(() => {

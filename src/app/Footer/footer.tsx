@@ -1,10 +1,11 @@
-import Logo from '@/UI/Components/Logo/logo';
+import Logo from '@/UI/Components/Logo';
 import globalStyles from '@/app/styles.module.css';
 import styles from './styles.module.css';
+import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
 
 export default function Footer() {
     return (
-        <footer className={`${globalStyles.maxwidth_wrapper} ${styles.wrapper}`}>
+        <footer className={ConcatClasses(globalStyles.maxwidth_wrapper, styles.wrapper)}>
             {/* logo / copyright */}
             <div className={styles.copyright_wrapper}>
                 <div className={styles.logo}>

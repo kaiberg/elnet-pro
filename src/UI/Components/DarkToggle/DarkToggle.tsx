@@ -1,6 +1,7 @@
 import { useThemeContext } from '@/CustomHooks/useThemeContext';
 import { ThemeContext } from '@/UI/Tokens/Theme/Theme';
 import React from 'react';
+import {VisuallyHiddenClient} from "@/UI/Components/VisuallyHidden";
 
 export default function DarkToggle() {
     const { colorMode, setColorMode } = useThemeContext();
@@ -12,6 +13,9 @@ export default function DarkToggle() {
     return (
         <button onClick={() => {
             setColorMode(colorMode === "dark" ? "light" : "dark");
-        }}>toggle</button>
+        }}>
+            toggle
+        <VisuallyHiddenClient>Toggle {colorMode === "dark" ? "light" : "dark"} mode</VisuallyHiddenClient>
+        </button>
     )
 }

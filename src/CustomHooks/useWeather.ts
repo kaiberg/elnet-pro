@@ -32,15 +32,15 @@ function useWeatherURL({latitude, longitude}: useWeatherProps): URL {
     }
 
     const baseUrl = `${openWeatherUrl}/${route}`;
-    const mutableParams = (): UrlParam[] => {
+    const mutableParams = React.useMemo(function () : UrlParam[] {
         return [[apiParams.latitude, latitude], [apiParams.longitude, longitude]]
-    };
+    }, [latitude, longitude]);
 
-    const url = React.useRef<URL>(createURL(baseUrl, [...mutableParams(), [apiParams.api_key, key]]));
+    const url = React.useRef<URL>(createURL(baseUrl, [...mutableParams, [apiParams.api_key, key]]));
 
     React.useEffect(function () {
-        setUrlParams(url.current, mutableParams());
-    }, [latitude, longitude])
+        setUrlParams(url.current, mutableParams);
+    }, [latitude, longitude, mutableParams])
 
     return url.current;
 }
@@ -61,7 +61,7 @@ export default function useWeather(latitude: useWeatherProps['latitude'], longit
 
     React.useEffect(function () {
         mutate('weather');
-    }, [latitude,longitude])
+    }, [latitude, longitude, mutate])
 
     return props;
 }
