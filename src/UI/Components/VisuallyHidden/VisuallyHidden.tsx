@@ -70,17 +70,3 @@ export function VisuallyHiddenClient<T extends React.ElementType = 'span'>({
         </VisuallyHidden>
     )
 }
-
-export const TEST1 = () => {
-    return (
-        <>
-            <VisuallyHidden as={'aside'}>
-                <p>childreno</p>
-            </VisuallyHidden>
-            <VisuallyHidden>
-                <p>childreno1</p>
-            </VisuallyHidden>
-        </>
-
-    )
-}

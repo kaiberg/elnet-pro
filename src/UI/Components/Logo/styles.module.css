@@ -1,6 +1,6 @@
 .logo {
     font-size: 1.5rem;
-    color: #C0C0C0;
+    color: var(--color-outline);
     /* prevent logo from spanning multiple lines */
     display: flex;
     word-break: keep-all;

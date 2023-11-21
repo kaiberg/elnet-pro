@@ -1,18 +1,8 @@
 :root {
-    --animation-duration-short1: 50;
-    --animation-duration-short2: 100;
-    --animation-duration-short3: 150;
-    --animation-duration-short4: 200;
-    --animation-duration-medium1: 250;
-    --animation-duration-medium2: 300;
-    --animation-duration-medium3: 350;
-    --animation-duration-medium4: 400;
-    --animation-duration-long1: 450;
-    --animation-duration-long2: 500;
-    --animation-duration-long3: 550;
-    --animation-duration-long4: 600;
-    --animation-duration-extra-long1: 700;
-    --animation-duration-extra-long2: 800;
-    --animation-duration-extra-long3: 900;
-    --animation-duration-extra-long4: 1000;
+    --animation-duration-short: 200ms;
+    --animation-duration-medium: 300ms;
+    --animation-duration-medium2: 350ms;
+    --animation-duration-medium3: 400ms;
+    --animation-duration-long: 500ms;
+    --animation-duration-extra-long: 700ms;
 }

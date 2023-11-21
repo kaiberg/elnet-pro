@@ -16,18 +16,18 @@ export default function Footer() {
             {/* links */}
             <div className={styles.links_wrapper}>
                 <div>
-                    <p>L1</p>
+                    <p>Pages</p>
                     <div className={styles.page_links_wrapper}>
-                        <a>Latest</a>
-                        <a>Parks</a>
+                        <a href=''>Latest</a>
+                        <a href=''>Parks</a>
                     </div>
                 </div>
                 <div>
                     <p>Links</p>
                     <div className={styles.legal_links_wrapper}>
-                        <a>Contact</a>
-                        <a>Terms of use</a>
-                        <a>Privacy Policy</a>
+                        <a href=''>Contact</a>
+                        <a href=''>Terms of use</a>
+                        <a href=''>Privacy Policy</a>
                     </div>
                 </div>
             </div>

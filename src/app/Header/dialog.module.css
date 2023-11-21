@@ -1,3 +1,6 @@
+.overlay {
+    animation: animation-fade ease-in var(--animation-duration-medium2);
+}
 
 .close_button {
     border: none;
@@ -9,6 +12,25 @@
 }
 
 .container {
+    width: 100%;
     position: relative;
     background: var(--color-background);
+}
+
+@media (--TABLET) {
+    .container {
+        width: fit-content;
+    }
+}
+
+/*animation: fade-faganja 3s;*/
+/*}*/
+
+@keyframes animation-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100;
+    }
 }

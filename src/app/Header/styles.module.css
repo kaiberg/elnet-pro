@@ -13,6 +13,10 @@
     padding: 0.5rem;
 }
 
+.logo {
+    margin-right: 32px;
+}
+
 .links {
     display: none;
 }
@@ -31,13 +35,21 @@
 
 .userprofile {
     border-radius: 50%;
-    border: 1px solid var(--color-text);
+    border: 1.5px solid var(--color-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .right_side {
     display: none;
     justify-content: flex-end;
     gap: 0.5rem;
+}
+
+.mobile_right_side {
+    display: flex;
+    justify-content: flex-end;
 }
 
 @media (--MOBILE) {
@@ -47,5 +59,9 @@
 
     .right_side {
         display: flex;
+    }
+
+    .mobile_right_side {
+        display: none;
     }
 }

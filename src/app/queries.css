@@ -1,4 +1,4 @@
-@custom-media --MOBILE (min-width: 500px);
-@custom-media --TABLET (min-width: 1000px);
-@custom-media --LAPTOP (min-width: 1500px);
-@custom-media --DESKTOP (min-width: 2000px);
+@custom-media --MOBILE (min-width: 31.25rem); /* 500px */
+@custom-media --TABLET (min-width: 62.5rem); /* 1000px */
+@custom-media --LAPTOP (min-width: 93.75rem); /* 1500px */
+@custom-media --DESKTOP (min-width: 125rem); /* 2000px */
