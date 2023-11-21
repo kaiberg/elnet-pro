@@ -2,22 +2,26 @@
 import styles from './styles.module.css';
 import dialogStyles from './dialog.module.css'
 import globalStyles from '../styles.module.css';
-import { usePathname } from "next/navigation";
-import Image from 'next/image'
+import {usePathname} from "next/navigation";
 import Logo from '@/UI/Components/Logo/Logo';
 import DarkToggle from '@/UI/Components/DarkToggle/DarkToggle';
 import Dialog from "@/UI/Components/Dialog/Dialog";
-import React, {useState} from "react";
+import React, {useId, useState} from "react";
 import TextField from "@/UI/Components/TextField";
 import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
-import {VisuallyHiddenClient} from "@/UI/Components/VisuallyHidden";
+import VisuallyHidden, {VisuallyHiddenClient} from "@/UI/Components/VisuallyHidden";
+import buttonStyles from '@/UI/Components/TouchTarget';
+import Icon from "@/UI/Components/Icon";
+import MobileNav from "@/UI/Components/MobileNav";
 
 export type HeaderProps = {
     slug: string
 }
 
-export default function Header({ slug }: HeaderProps) {
+export default function Header({slug}: HeaderProps) {
     const path = usePathname();
+    const [showMobileMenu, setShowMobileMenu] = React.useState(false);
+    const flipMobile = () => setShowMobileMenu((p) => !p);
 
     console.log(path);
 
@@ -26,25 +30,43 @@ export default function Header({ slug }: HeaderProps) {
             <header className={ConcatClasses(globalStyles.maxwidth_wrapper, styles.wrapper)}>
                 {/* icon, links */}
                 <div className={styles.left_side}>
-                    <Logo className={styles.logo} />
+                    <Logo className={styles.logo}/>
                     <nav className={styles.links}>
-                        <a className={styles.link}>Overview</a>
+                        <a className={styles.link} href='/'>Overview</a>
                         <a className={styles.link} href='/parks'>Parks</a>
                     </nav>
-
                 </div>
                 {/* login / controls */}
                 <div className={styles.right_side}>
                     <DarkToggle/>
                     <LoginInfo/>
                 </div>
+                <div className={styles.mobile_right_side}>
+                    <button onClick={flipMobile}>
+                        <Icon icon={'Menu'}/>
+                        <VisuallyHiddenClient>Toggle mobile menu</VisuallyHiddenClient>
+                    </button>
+                    {showMobileMenu && <MobileMenu onClose={flipMobile}/>}
+                </div>
             </header>
         </div>
     )
 }
 
+function MobileMenu(props: { onClose: () => void }) {
+    return (
+        <MobileNav {...props}>
+            <input/>
+        </MobileNav>
+    )
+}
+
 function LoginInfo() {
-    const [s,ss] = useState(true);
+    const id = useId();
+    const [s, ss] = useState(false);
+
+    const usernameId = `${id}-username`;
+    const passwordId = `${id}-password`
 
     function flip() {
         ss(s => !s);
@@ -52,29 +74,43 @@ function LoginInfo() {
 
     return (
         <React.Fragment>
-            {s && <Dialog onClose={flip} contentClasses={dialogStyles.container}>
+            {s && <Dialog onClose={flip} overlayClasses={dialogStyles.overlay} contentClasses={dialogStyles.container}
+                          contentProps={{"aria-labelledby": 'login_id', "aria-describedby": 'login_id'}}>
                 <>
+                    <h1 id={"login_id"}>Log In</h1>
                     <div>
-                        <TextField placeholder="Username" />
-                        <VisuallyHiddenClient>
-                            Username field
-                        </VisuallyHiddenClient>
-                        <TextField placeholder="Password" type={"password"} />
-                        <VisuallyHiddenClient>
-                            Password field
-                        </VisuallyHiddenClient>
+                        <div>
+                            <VisuallyHiddenClient as={'label'} props={{htmlFor: usernameId}}>
+                                Username field
+                            </VisuallyHiddenClient>
+                            <TextField placeholder="Username" id={usernameId}/>
+                        </div>
+
+                        <div>
+                            <VisuallyHiddenClient as={'label'} props={{htmlFor: passwordId}}>
+                                Password field
+                            </VisuallyHiddenClient>
+                            <TextField placeholder="Password" type={"password"} id={passwordId}/>
+                        </div>
+
+                        <button>Sign In</button>
                     </div>
-                    <button className={dialogStyles.close_button} onClick={flip}>X</button>
-                    <VisuallyHiddenClient>
-                        Close Button
-                    </VisuallyHiddenClient>
+                    <button className={dialogStyles.close_button} onClick={flip}>
+                        <Icon icon={'X'} width={32} height={32}/>
+                        <VisuallyHidden>Close Button</VisuallyHidden>
+                    </button>
                 </>
             </Dialog>}
-            <Image width={48} height={48} src={''} alt='profile' className={styles.userprofile} onClick={flip} />
-            <VisuallyHiddenClient>
-                Profile Picture With user control panel
-            </VisuallyHiddenClient>
+            <button onClick={flip} className={ConcatClasses(buttonStyles.container, buttonStyles.icon_container)}>
+                <span className={ConcatClasses(styles.userprofile, buttonStyles.icon)}>
+                    {/*<Icon icon={'User'} />*/}
+                    <span>K</span>
+                    <VisuallyHiddenClient>
+                        Log in
+                    </VisuallyHiddenClient>
+                </span>
+
+            </button>
         </React.Fragment>
     )
-
 }

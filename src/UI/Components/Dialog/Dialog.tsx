@@ -1,5 +1,5 @@
 'use client'
-import React, {useRef} from "react";
+import React, {useRef, ComponentPropsWithoutRef} from "react";
 import {createPortal} from "react-dom";
 import styles from "./styles.module.css";
 import {RemoveScroll} from "react-remove-scroll";
@@ -13,6 +13,7 @@ export type props = {
     children: React.ReactElement,
     overlayClasses?: string,
     contentClasses?: string
+    contentProps?: ComponentPropsWithoutRef<'div'>
 }
 
 export default function Dialog(props: props) {
@@ -39,7 +40,7 @@ function ShowDialog(props: props) {
     }, [])
 
     return createPortal(
-        <ReactFocusLock>
+        <ReactFocusLock returnFocus={true}>
             <RemoveScroll>
                 <div className={ConcatClasses(styles.overlay, props.overlayClasses)} ref={overlayRef}>
                     <DialogContent {...props} ref={overlayRef}/>
@@ -50,7 +51,7 @@ function ShowDialog(props: props) {
 }
 
 const DialogContent = React.forwardRef<HTMLDivElement, props>(
-    function DialogContent({children, contentClasses, onClose}: props, ref: React.ForwardedRef<HTMLDivElement>) {
+    function DialogContent({children, contentClasses, contentProps, onClose}: props, ref: React.ForwardedRef<HTMLDivElement>) {
         React.useEffect(() => {
             function closeOnEscape(event: KeyboardEvent) {
                 if (event.key === "Escape") {
@@ -78,7 +79,7 @@ const DialogContent = React.forwardRef<HTMLDivElement, props>(
         }, [ref, onClose]);
 
         return (
-            <div className={ConcatClasses(styles.content, contentClasses)}>
+            <div role={'dialog'} aria-modal={'true'} {...contentProps} className={ConcatClasses(styles.content, contentClasses)}  >
                 {children}
             </div>
         )

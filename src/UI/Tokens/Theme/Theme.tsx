@@ -1,10 +1,11 @@
 'use client'
 import React from "react";
-import {COLORS, KEYS} from "@/UI/Tokens/Theme/constants";
+import {COLORS, ColorTypes, KEYS} from "@/UI/Tokens/Theme/constants";
 import {setRootColors} from "@/UI/Tokens/Theme/setColorsByTheme";
 // export * from './constants';
 
-export const ThemeContext = React.createContext<{ colorMode: string | undefined; setColorMode: (value: string) => void; } | undefined>(undefined);
+export type ThemeContextValue = { colorMode: string | undefined; setColorMode: (value: ColorTypes) => void; }
+export const ThemeContext = React.createContext<ThemeContextValue | undefined>(undefined);
 
 type props = {
     children: React.ReactNode
@@ -16,7 +17,7 @@ export default function ThemContextProvider({children} : props) {
     React.useEffect(() => {
         const {documentElement, body} = window.document;
 
-        body.style.setProperty("transition", "color 350ms ease 0s, background 350ms ease 0s");
+        body.style.setProperty("transition", "color var(--animation-duration-medium2) ease 0s, background var(--animation-duration-medium2) ease 0s");
         const initialSyle = documentElement.style.getPropertyValue(KEYS.INITIAL_COLOR_MODE_CSS_PROP);
         setRawColorMode(initialSyle);
     }, [])
@@ -29,8 +30,12 @@ export default function ThemContextProvider({children} : props) {
 
         setRootColors(COLORS, value, documentElement);
     }
+    
+    const ProviderValue = React.useMemo(() => {
+        return {colorMode, setColorMode};
+    }, [colorMode])
 
-    return <ThemeContext.Provider value={{colorMode, setColorMode}}>
+    return <ThemeContext.Provider value={ProviderValue}>
         {children}
     </ThemeContext.Provider>
 }

@@ -1,0 +1,22 @@
+.icon_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    min-height: 24px;
+    aspect-ratio: 1 / 1;
+}
+
+.container {
+    min-height: 48px;
+    min-width: 48px;
+}
+
+@media (--TABLET) {
+    .container {
+        min-height: 40px;
+        min-width: 32px;
+    }
+}

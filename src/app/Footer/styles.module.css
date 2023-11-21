@@ -52,7 +52,15 @@
     grid-template-columns: 1fr;
 }
 
+.legal_links_wrapper > *, .page_links_wrapper > * {
+    min-height: 48px;
+}
+
 @media (--MOBILE) {
+    .legal_links_wrapper > *, .page_links_wrapper > * {
+        min-height: initial;
+    }
+
     .wrapper {
         flex-direction: row;
         justify-content: space-between;
