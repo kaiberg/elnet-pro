@@ -1,6 +1,15 @@
 .input {
     color: var(--color-text, #333333);
-    border: 1px solid var(--color-border, #e5e5e5);
+    border: 2px solid var(--color-text, #e5e5e5);
     padding: 0px 6px;
     background-color: var(--color-background, white);
+    height: 50px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: var(--shape-corner-small);
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--color-primary);
 }

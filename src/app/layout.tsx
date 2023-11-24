@@ -1,6 +1,5 @@
 import './globals.css'
-import '@/UI/Tokens/Typography/variables.css'
-import '@/UI/Tokens/Animation/variables.css'
+import '@/UI/Tokens/variables.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Footer from './Footer/footer'

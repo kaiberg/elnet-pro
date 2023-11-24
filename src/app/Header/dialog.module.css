@@ -17,9 +17,19 @@
     background: var(--color-background);
 }
 
+.wrapper {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.dialogItem {
+    padding-bottom: 16px;
+}
+
 @media (--TABLET) {
     .container {
         width: fit-content;
+        border-radius: var(--shape-corner-extra-large);
     }
 }
 
