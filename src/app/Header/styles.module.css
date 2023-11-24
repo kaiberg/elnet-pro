@@ -13,6 +13,14 @@
     padding: 0.5rem;
 }
 
+.loginButton {
+    width: 100%;
+}
+
+.loginButton:focus, .loginButton:hover {
+    background-color: var(--color-primary);
+}
+
 .logo {
     margin-right: 32px;
 }
@@ -34,7 +42,7 @@
 }
 
 .userprofile {
-    border-radius: 50%;
+    border-radius: var(--shape-corner-full);
     border: 1.5px solid var(--color-text);
     display: flex;
     justify-content: center;

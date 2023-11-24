@@ -1,0 +1,11 @@
+.button {
+    color: var(--color-background);
+    background-color: var(--color-text);
+    cursor: pointer;
+    text-overflow: ellipsis;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-weight: var(--font-weight-bold);
+    border-radius: var(--shape-corner-small);
+    height: 48px;
+}

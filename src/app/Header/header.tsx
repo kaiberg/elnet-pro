@@ -13,6 +13,10 @@ import VisuallyHidden, {VisuallyHiddenClient} from "@/UI/Components/VisuallyHidd
 import buttonStyles from '@/UI/Components/TouchTarget';
 import Icon from "@/UI/Components/Icon";
 import MobileNav from "@/UI/Components/MobileNav";
+import Button from "@/UI/Components/Button";
+import {useForm, SubmitHandler} from "react-hook-form";
+import {LoginSchema, TLoginSchema} from "@/app/Header/LoginForm";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 export type HeaderProps = {
     slug: string
@@ -21,7 +25,9 @@ export type HeaderProps = {
 export default function Header({slug}: HeaderProps) {
     const path = usePathname();
     const [showMobileMenu, setShowMobileMenu] = React.useState(false);
-    const flipMobile = () => setShowMobileMenu((p) => !p);
+    const flipMobile = React.useCallback(() => {
+        setShowMobileMenu((p) => !p)
+    }, []);
 
     console.log(path);
 
@@ -65,6 +71,14 @@ function LoginInfo() {
     const id = useId();
     const [s, ss] = useState(false);
 
+    const {register, handleSubmit, formState, watch} = useForm<TLoginSchema>({
+        resolver: zodResolver(LoginSchema),
+        defaultValues: {
+            username: '',
+            password: ''
+        }
+    })
+
     const usernameId = `${id}-username`;
     const passwordId = `${id}-password`
 
@@ -72,34 +86,47 @@ function LoginInfo() {
         ss(s => !s);
     }
 
+    const handleValidSubmit: SubmitHandler<TLoginSchema> = ({username, password}: TLoginSchema) => {
+        console.log(`user logged in with ${username}, ${password}`)
+    }
+
     return (
         <React.Fragment>
             {s && <Dialog onClose={flip} overlayClasses={dialogStyles.overlay} contentClasses={dialogStyles.container}
                           contentProps={{"aria-labelledby": 'login_id', "aria-describedby": 'login_id'}}>
-                <>
-                    <h1 id={"login_id"}>Log In</h1>
-                    <div>
-                        <div>
-                            <VisuallyHiddenClient as={'label'} props={{htmlFor: usernameId}}>
+                <div className={dialogStyles.wrapper}>
+                    <VisuallyHiddenClient as={'h1'} id={"login_id"}>Log In</VisuallyHiddenClient>
+                    <form onSubmit={handleSubmit(handleValidSubmit)}>
+                        <div className={dialogStyles.dialogItem}>
+                            <VisuallyHiddenClient as={'label'} htmlFor={usernameId}>
                                 Username field
                             </VisuallyHiddenClient>
-                            <TextField placeholder="Username" id={usernameId}/>
+                            <TextField placeholder="Username" id={usernameId} {...register('username')} autoComplete={'username'} />
+                            <p>{formState.errors.username?.message}</p>
                         </div>
 
-                        <div>
-                            <VisuallyHiddenClient as={'label'} props={{htmlFor: passwordId}}>
+                        <div className={dialogStyles.dialogItem}>
+                            <VisuallyHiddenClient as={'label'} htmlFor={passwordId}>
                                 Password field
                             </VisuallyHiddenClient>
-                            <TextField placeholder="Password" type={"password"} id={passwordId}/>
+                            <TextField placeholder="Password" type={"password"}
+                                       id={passwordId} {...register('password')} autoComplete={'current-password'}/>
+                            <p>{formState.errors.password?.message}</p>
                         </div>
 
-                        <button>Sign In</button>
-                    </div>
+                        <div className={dialogStyles.dialogItem}>
+                            <Button classes={styles.loginButton} type={'submit'}>Sign In</Button>
+                        </div>
+                    </form>
                     <button className={dialogStyles.close_button} onClick={flip}>
                         <Icon icon={'X'} width={32} height={32}/>
                         <VisuallyHidden>Close Button</VisuallyHidden>
                     </button>
-                </>
+
+                    {process.env.NODE_ENV !== 'production' && <pre>
+                        {JSON.stringify(watch(), null, 2)}
+                    </pre>}
+                </div>
             </Dialog>}
             <button onClick={flip} className={ConcatClasses(buttonStyles.container, buttonStyles.icon_container)}>
                 <span className={ConcatClasses(styles.userprofile, buttonStyles.icon)}>
@@ -112,5 +139,5 @@ function LoginInfo() {
 
             </button>
         </React.Fragment>
-    )
+    );
 }

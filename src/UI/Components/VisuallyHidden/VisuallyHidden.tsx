@@ -1,19 +1,24 @@
 import React, {ComponentPropsWithoutRef} from 'react'
 import styles from './styles.module.css'
 import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
+import {useKeyDown} from "@/CustomHooks/useKeyDown";
+import {useDevelopment} from "@/CustomHooks/useDevelopment";
 
-export type VisuallyHiddenProps<T extends React.ElementType> = {
+type VisuallyCustomHiddenProps<T extends React.ElementType> = {
     children: React.ReactNode,
-    as?: T,
-    classes?: string | undefined
-    props?: ComponentPropsWithoutRef<T>,
+    as?: T | undefined,
+    classes?: string | undefined,
 }
+
+export type VisuallyHiddenProps<T extends React.ElementType> = VisuallyCustomHiddenProps<T> &
+    Omit<ComponentPropsWithoutRef<T>, keyof VisuallyCustomHiddenProps<T>>
+
 
 export default function VisuallyHidden<T extends React.ElementType = 'span'>({
                                                                                  children,
                                                                                  as,
                                                                                  classes,
-                                                                                 props
+                                                                                 ...props
                                                                              }: VisuallyHiddenProps<T>) {
     const Type = as || 'span';
 
@@ -26,36 +31,23 @@ export default function VisuallyHidden<T extends React.ElementType = 'span'>({
 
 export function VisuallyHiddenClient<T extends React.ElementType = 'span'>({
                                                                                children,
+                                                                                as,
                                                                                ...props
                                                                            }: VisuallyHiddenProps<T>) {
     const [showRawContent, setForceShowRaw] = React.useState(false);
-    React.useEffect(function () {
-        if (process.env.NODE_ENV === 'production') {
-            return;
-        }
-        const showChildrenOnPress = (ev: KeyboardEvent) => {
-            if (ev.key === 'End') {
-                setForceShowRaw(true);
-            }
-        };
 
-        window.addEventListener('keydown', showChildrenOnPress);
-
-        return () => {
-            window.removeEventListener('keydown', showChildrenOnPress);
-        };
-    }, []);
+    useDevelopment(useKeyDown('End', () => setForceShowRaw(true)))
 
     React.useEffect(function () {
-        let id: number | undefined;
+        let timeoutId: number | undefined;
         if (showRawContent) {
-            id = window.setTimeout(() => {
+            timeoutId = window.setTimeout(() => {
                 setForceShowRaw(false);
             }, 10 * 1000)
         }
 
         return function () {
-            window.clearInterval(id);
+            window.clearInterval(timeoutId);
         }
     }, [showRawContent])
 
@@ -64,8 +56,10 @@ export function VisuallyHiddenClient<T extends React.ElementType = 'span'>({
         return children;
     }
 
+    const asErrorFix = as || "span";
+
     return (
-        <VisuallyHidden {...props}>
+        <VisuallyHidden as={as} {...props}>
             {children}
         </VisuallyHidden>
     )
