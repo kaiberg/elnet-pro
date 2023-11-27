@@ -1,8 +1,8 @@
 :root {
     --animation-duration-short: 200ms;
-    --animation-duration-medium: 300ms;
-    --animation-duration-medium2: 350ms;
-    --animation-duration-medium3: 400ms;
-    --animation-duration-long: 500ms;
+    --animation-duration-medium: 250ms;
+    --animation-duration-medium2: 300ms;
+    --animation-duration-medium3: 350ms;
+    --animation-duration-long: 450ms;
     --animation-duration-extra-long: 700ms;
 }

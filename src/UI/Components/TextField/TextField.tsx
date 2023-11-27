@@ -6,7 +6,7 @@ export type TextFieldProps = {
     borderRadius?: 1 | 2 | 3 | 4 | 5 | 6;
     borderType?: "outlined" | "filled"
     classes?: string
-} & ComponentPropsWithoutRef<"input">
+} & Omit<ComponentPropsWithoutRef<"input">, 'className'>
 
 export default React.forwardRef<HTMLInputElement, TextFieldProps>(
     function TextField({borderType = "outlined", borderRadius, classes, ...props} : TextFieldProps, ref) {
