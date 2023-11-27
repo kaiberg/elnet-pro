@@ -14,7 +14,7 @@ import buttonStyles from '@/UI/Components/TouchTarget';
 import Icon from "@/UI/Components/Icon";
 import MobileNav from "@/UI/Components/MobileNav";
 import Button from "@/UI/Components/Button";
-import {useForm, SubmitHandler} from "react-hook-form";
+import {SubmitHandler, useForm} from "react-hook-form";
 import {LoginSchema, TLoginSchema} from "@/app/Header/LoginForm";
 import {zodResolver} from "@hookform/resolvers/zod";
 
@@ -93,7 +93,8 @@ function LoginInfo() {
     return (
         <React.Fragment>
             {s && <Dialog onClose={flip} overlayClasses={dialogStyles.overlay} contentClasses={dialogStyles.container}
-                          contentProps={{"aria-labelledby": 'login_id', "aria-describedby": 'login_id'}}>
+                          aria-labelledby={"login_id"}
+                          aria-describedby={"login_id"} aria-label={'Log in'}>
                 <div className={dialogStyles.wrapper}>
                     <VisuallyHiddenClient as={'h1'} id={"login_id"}>Log In</VisuallyHiddenClient>
                     <form onSubmit={handleSubmit(handleValidSubmit)}>
@@ -101,7 +102,8 @@ function LoginInfo() {
                             <VisuallyHiddenClient as={'label'} htmlFor={usernameId}>
                                 Username field
                             </VisuallyHiddenClient>
-                            <TextField placeholder="Username" id={usernameId} {...register('username')} autoComplete={'username'} />
+                            <TextField classes={dialogStyles.input} placeholder="Username"
+                                       id={usernameId} {...register('username')} autoComplete={'username'}/>
                             <p>{formState.errors.username?.message}</p>
                         </div>
 
@@ -109,18 +111,18 @@ function LoginInfo() {
                             <VisuallyHiddenClient as={'label'} htmlFor={passwordId}>
                                 Password field
                             </VisuallyHiddenClient>
-                            <TextField placeholder="Password" type={"password"}
+                            <TextField placeholder="Password" type={"password"} classes={dialogStyles.input}
                                        id={passwordId} {...register('password')} autoComplete={'current-password'}/>
                             <p>{formState.errors.password?.message}</p>
                         </div>
 
                         <div className={dialogStyles.dialogItem}>
-                            <Button classes={styles.loginButton} type={'submit'}>Sign In</Button>
+                            <Button classes={styles.loginButton} type={'submit'}>Sign in</Button>
                         </div>
                     </form>
                     <button className={dialogStyles.close_button} onClick={flip}>
                         <Icon icon={'X'} width={32} height={32}/>
-                        <VisuallyHidden>Close Button</VisuallyHidden>
+                        <VisuallyHidden>Close</VisuallyHidden>
                     </button>
 
                     {process.env.NODE_ENV !== 'production' && <pre>
@@ -131,7 +133,7 @@ function LoginInfo() {
             <button onClick={flip} className={ConcatClasses(buttonStyles.container, buttonStyles.icon_container)}>
                 <span className={ConcatClasses(styles.userprofile, buttonStyles.icon)}>
                     {/*<Icon icon={'User'} />*/}
-                    <span>K</span>
+                    <span aria-hidden={"true"}>K</span>
                     <VisuallyHiddenClient>
                         Log in
                     </VisuallyHiddenClient>

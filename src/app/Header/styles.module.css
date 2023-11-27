@@ -42,7 +42,7 @@
 }
 
 .userprofile {
-    border-radius: var(--shape-corner-full);
+    border-radius: var(--shape-full);
     border: 1.5px solid var(--color-text);
     display: flex;
     justify-content: center;

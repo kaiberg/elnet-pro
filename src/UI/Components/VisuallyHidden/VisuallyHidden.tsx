@@ -31,7 +31,8 @@ export default function VisuallyHidden<T extends React.ElementType = 'span'>({
 
 export function VisuallyHiddenClient<T extends React.ElementType = 'span'>({
                                                                                children,
-                                                                                as,
+                                                                               as,
+                                                                               classes,
                                                                                ...props
                                                                            }: VisuallyHiddenProps<T>) {
     const [showRawContent, setForceShowRaw] = React.useState(false);
@@ -51,15 +52,14 @@ export function VisuallyHiddenClient<T extends React.ElementType = 'span'>({
         }
     }, [showRawContent])
 
+    const typeErrorFix = as || "span";
 
     if (showRawContent) {
         return children;
     }
 
-    const asErrorFix = as || "span";
-
     return (
-        <VisuallyHidden as={as} {...props}>
+        <VisuallyHidden {...props} classes={classes} as={typeErrorFix}>
             {children}
         </VisuallyHidden>
     )

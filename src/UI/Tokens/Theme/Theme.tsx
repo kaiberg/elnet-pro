@@ -17,7 +17,7 @@ export default function ThemContextProvider({children} : props) {
     React.useEffect(() => {
         const {documentElement, body} = window.document;
 
-        body.style.setProperty("transition", "color var(--animation-duration-medium2) ease 0s, background var(--animation-duration-medium2) ease 0s");
+        body.style.setProperty("transition", "color var(--animation-duration-medium3) ease 0s, background var(--animation-duration-medium3) ease 0s");
         const initialSyle = documentElement.style.getPropertyValue(KEYS.INITIAL_COLOR_MODE_CSS_PROP);
         setRawColorMode(initialSyle);
     }, [])

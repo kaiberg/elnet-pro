@@ -13,8 +13,7 @@ export type props = {
     children: React.ReactElement,
     overlayClasses?: string,
     contentClasses?: string
-    contentProps?: ComponentPropsWithoutRef<'div'>
-}
+} & Omit<ComponentPropsWithoutRef<'div'>, 'children' | 'classname'>
 
 export default function Dialog(props: props) {
     const hasMounted = useHasMounted();
@@ -51,7 +50,7 @@ function ShowDialog(props: props) {
 }
 
 const DialogContent = React.forwardRef<HTMLDivElement, props>(
-    function DialogContent({children, contentClasses, contentProps, onClose}: props, ref: React.ForwardedRef<HTMLDivElement>) {
+    function DialogContent({children, contentClasses, onClose, ...contentProps}: props, ref: React.ForwardedRef<HTMLDivElement>) {
         React.useEffect(() => {
             function closeOnEscape(event: KeyboardEvent) {
                 if (event.key === "Escape") {

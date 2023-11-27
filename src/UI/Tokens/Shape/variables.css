@@ -1,14 +1,14 @@
 :root {
-    --shape-corner-extra-small-top: 4px 4px 0px 0px;
-    --shape-corner-extra-small: 4px 4px 4px 4px;
-    --shape-corner-large: 16px 16px 16px 16px;
-    --shape-corner-none: 0px 0px 0px 0px;
-    --shape-corner-large-start: 16px 0px 0px 16px;
-    --shape-corner-medium: 12px 12px 12px 12px;
-    --shape-corner-small: 8px 8px 8px 8px;
-    --shape-corner-large-end: 0px 16px 16px 0px;
-    --shape-corner-large-top: 16px 16px 0px 0px;
-    --shape-corner-extra-large: 28px 28px 28px 28px;
-    --shape-corner-extra-large-top: 28px 28px 0px 0px;
-    --shape-corner-full: 50%;
+    --shape-full: 50%;
+    --shape-extra-large-top: 28px 28px 0px 0px;
+    --shape-extra-large: 28px 28px 28px 28px;
+    --shape-large-top: 16px 16px 0px 0px;
+    --shape-large-end: 0px 16px 16px 0px;
+    --shape-large-start: 16px 0px 0px 16px;
+    --shape-large: 16px 16px 16px 16px;
+    --shape-medium: 12px 12px 12px 12px;
+    --shape-small: 8px 8px 8px 8px;
+    --shape-extra-small-top: 4px 4px 0px 0px;
+    --shape-extra-small: 4px 4px 4px 4px;
+    --shape-none: 0px 0px 0px 0px;
 }

@@ -1,6 +1,7 @@
 import React, {ComponentPropsWithoutRef} from "react";
 import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
 import styles from './styles.module.css';
+import {LABEL_LARGE} from "@/UI/Tokens/Typography";
 
 export type ButtonProps<T extends React.ElementType> = {
     classes?: string | undefined,
@@ -12,6 +13,6 @@ export default function Button<T extends React.ElementType = 'button'>({classes,
     const Type = as || "button";
 
     return (
-        <Type {...props} className={ConcatClasses(styles.button, classes)}>{children}</Type>
+        <Type {...props} className={ConcatClasses(LABEL_LARGE, styles.button, classes)}>{children}</Type>
     )
 }

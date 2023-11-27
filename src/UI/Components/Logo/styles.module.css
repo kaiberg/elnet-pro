@@ -1,5 +1,4 @@
 .logo {
-    font-size: 1.5rem;
     color: var(--color-outline);
     /* prevent logo from spanning multiple lines */
     display: flex;

@@ -1,5 +1,5 @@
 .overlay {
-    animation: animation-fade ease-in var(--animation-duration-medium2);
+    animation: animation-fade ease-in var(--animation-duration-medium3);
 }
 
 .close_button {
@@ -7,29 +7,47 @@
     font-size: 150%;
     padding: 5px;
     position: absolute;
-    right: 10px;
-    top: 0;
+    right: 8px;
+    top: 10px;
 }
 
 .container {
+    margin: 0;
+    height: 100%;
     width: 100%;
     position: relative;
     background: var(--color-background);
 }
 
 .wrapper {
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding-top: 48px;
+    padding-bottom: 48px;
 }
 
 .dialogItem {
     padding-bottom: 16px;
 }
 
+.input {
+    width: 100%;
+}
+
 @media (--TABLET) {
     .container {
+        margin: 10vh auto;
+        height: auto;
         width: fit-content;
-        border-radius: var(--shape-corner-extra-large);
+        border-radius: var(--shape-extra-large);
+    }
+
+    .close_button {
+        top: 0;
+        right: 10px;
+    }
+
+    .wrapper {
+        padding-top: 16px;
+        padding-bottom: 16px;
     }
 }
 

@@ -3,7 +3,7 @@
     top: 32px;
     left: 32px;
     padding: 16px 24px;
-    border-radius: var(--shape-corner-medium);
+    border-radius: var(--shape-medium);
     background: var(--color-background);
     color: var(--color-text);
     box-shadow: rgba(0, 0, 0, 0.02) 0px -5.9px 2.7px, rgba(0, 0, 0, 0.024) 0px -1.2px 6.9px, rgba(0, 0, 0, 0.03) 0px 8px 14.2px, rgba(0, 0, 0, 0.04) 0px 21.9px 29.2px, rgba(0, 0, 0, 0.07) 0px 49px 80px;
