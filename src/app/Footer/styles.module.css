@@ -6,7 +6,7 @@
 }
 
 .normal_copyright, .mobile_copyright {
-    color: var(--color-gray-700);
+    color: var(--color-outline);
 }
 
 .normal_copyright {
@@ -34,8 +34,8 @@
     justify-content: space-around;
 }
 
-.links_wrapper>div>p {
-    color: var(--color-gray-700);
+.links_wrapper>div>:first-child {
+    color: var(--color-outline);
 }
 
 .page_links_wrapper {

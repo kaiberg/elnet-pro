@@ -1,12 +1,11 @@
 import './globals.css'
-import '@/UI/Tokens/variables.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import {FallbackStyles, SetColorsByTheme} from "@/UI/Tokens/Theme/setColorsByTheme";
+import ThemContextProvider from "@/UI/Tokens/Theme";
+import SkipToContent from "@/UI/Components/SkipToContent/SkipToContent";
 import Footer from './Footer/footer'
 import Header from './Header/header'
-import ThemContextProvider from "@/UI/Tokens/Theme";
-import {FallbackStyles, SetColorsByTheme} from "@/UI/Tokens/Theme/setColorsByTheme";
-import SkipToContent from "@/UI/Components/SkipToContent/SkipToContent";
 import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
 import {BODY_LARGE} from "@/UI/Tokens/Typography";
 

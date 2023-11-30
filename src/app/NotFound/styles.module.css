@@ -1,16 +1,19 @@
 .header {
     font-size: clamp(4rem, 8vw, 20rem);
+    line-height: initial;
 }
 
 .information {
     font-size: clamp(2rem, 2vw, 20rem);
+    line-height: initial;
 }
 
 .go_back {
     margin-block-start: 6rem;
     display: inline-flex;
     font-size: clamp(1.5rem, 1vw, 20rem);
-    color: var(--color-primary)
+    color: var(--color-primary);
+    line-height: initial;
 }
 
 .wrapper {

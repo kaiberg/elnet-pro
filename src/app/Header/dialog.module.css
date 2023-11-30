@@ -2,6 +2,11 @@
     animation: animation-fade ease-in var(--animation-duration-medium3);
 }
 
+.loginButton {
+    min-height: 48px;
+    width: 100%;
+}
+
 .close_button {
     border: none;
     font-size: 150%;

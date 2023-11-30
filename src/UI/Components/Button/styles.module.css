@@ -1,10 +1,127 @@
 .button {
-    color: var(--color-background);
-    background-color: var(--color-text);
-    cursor: pointer;
-    text-overflow: ellipsis;
     padding-left: 16px;
     padding-right: 16px;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    height: 40px;
+    outline-offset: 4px;
+}
+
+/*color: var(--color-background);*/
+/*background-color: var(--color-on-background);*/
+
+.none {
+    border-radius: var(--shape-none);
+}
+
+.elevated {
+    color: var(--color-primary);
+    background-color: color-mix(var(--color-surface-container-low), var(--color-surface-tint));
+}
+
+.elevated:disabled {
+    background-color: color-mix(var(--color-on-surface), 12%);
+    color: color-mix(var(--color-on-surface), 32%);
+}
+
+.elevated:focus {
+    background-color: color-mix(in hsl, var(--color-primary), transparent 10%);
+}
+
+.elevated:hover {
+    background-color: color-mix(in hsl, var(--color-primary), transparent 8%);
+}
+
+.filled {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary)
+}
+
+.filled:focus {
+    background-color: color-mix(in hsl, var(--color-primary), transparent 10%);
+}
+
+.filled:hover {
+    background-color: color-mix(in hsl, var(--color-primary), transparent 8%);
+}
+
+.filled:disabled {
+    background-color: color-mix(in hsl, var(--color-on-surface), transparent 88%);
+    color: color-mix(in hsl, var(--color-on-surface), transparent 62%);
+}
+
+.tonal {
+    background-color: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+}
+
+.tonal:disabled {
+    background-color: color-mix(var(--color-on-surface), transparent 12%);
+    color: color-mix(var(--color-on-surface), transparent 38%);
+}
+
+.tonal:hover {
+    background-color: color-mix(var(--color-on-secondary-container) 8%, var(--color-secondary-container));
+}
+
+.tonal:focus {
+    background-color: color-mix(var(--color-on-secondary-container) 10%, var(--color-secondary-container));
+}
+
+.outlined {
+    border: 1px solid var(--color-outline);
+    color: var(--color-primary);
+}
+
+.outlined:disabled {
+    color: color-mix(var(--color-on-surface), transparent 38%);
+    border-color: color-mix(var(--color-on-surface), transparent 88%);
+}
+
+.outlined:hover {
+    background: color-mix(var(--color-primary), transparent 8%);
+}
+
+.outlined:focus {
+    background: color-mix(var(--color-primary), transparent 10%);
+}
+
+.text {
+    color: var(--color-primary);
+}
+
+.text:disabled {
+    color: color-mix(var(--color-primary), transparent 38%);
+}
+
+.text:focus {
+    color: color-mix(var(--color-primary), transparent 8%);
+}
+
+.text:focus {
+    color: color-mix(var(--color-primary), transparent 10%);
+}
+
+.extra-small {
+    border-radius: var(--shape-extra-small);
+}
+
+.small {
     border-radius: var(--shape-small);
-    height: 48px;
+}
+
+.medium {
+    border-radius: var(--shape-medium);
+}
+
+.large {
+    border-radius: var(--shape-large);
+}
+
+.extra-large {
+    border-radius: var(--shape-extra-large);
+}
+
+.full {
+    border-radius: var(--shape-full);
 }
