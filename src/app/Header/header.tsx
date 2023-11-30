@@ -65,6 +65,9 @@ export default function Header({slug}: HeaderProps) {
 function MobileMenu(props: { onClose: () => void }) {
     const id = useId();
     const handleEvent = (e: React.MouseEvent<any> | React.KeyboardEvent<any>): void => {
+        if (e.nativeEvent instanceof KeyboardEvent && e.nativeEvent.key === 'Escape'){
+            return;
+        }
         e.stopPropagation();
     };
 
@@ -99,7 +102,7 @@ function MobileMenu(props: { onClose: () => void }) {
 
 function LoginInfo() {
     const hasMounted = useHasMounted();
-    const loggedIn = true;
+    const loggedIn = false;
 
     if(!hasMounted) {
         return null
