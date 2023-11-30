@@ -10,15 +10,13 @@
 }
 
 .link {
+    font-weight: var(--font-weight-regular);
     padding: 0.5rem;
 }
 
-.loginButton {
-    width: 100%;
-}
-
-.loginButton:focus, .loginButton:hover {
-    background-color: var(--color-primary);
+.login_button {
+    background: var(--color-on-background);
+    color: var(--color-background);
 }
 
 .logo {
@@ -41,9 +39,13 @@
     font-weight: 600;
 }
 
+.userprofile_button {
+    color: inherit;
+}
+
 .userprofile {
     border-radius: var(--shape-full);
-    border: 1.5px solid var(--color-text);
+    border: 1.5px solid var(--color-on-background);
     display: flex;
     justify-content: center;
     align-items: center;

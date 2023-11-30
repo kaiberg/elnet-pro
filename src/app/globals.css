@@ -1,3 +1,4 @@
+@import "@/UI/Tokens/variables.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,7 +13,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   background: var(--color-background);
-  color: var(--color-text);
+  color: var(--color-on-background);
 }
 img, picture, video, canvas, svg {
   display: block;
@@ -29,6 +30,3 @@ p, h1, h2, h3, h4, h5, h6 {
   --background-color: hsl(0,0%,100%);
 }
 
-:root {
-  --reach-dialog: 1;
-}
