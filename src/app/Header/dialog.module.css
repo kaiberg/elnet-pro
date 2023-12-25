@@ -56,9 +56,6 @@
     }
 }
 
-/*animation: fade-faganja 3s;*/
-/*}*/
-
 @keyframes animation-fade {
     from {
         opacity: 0;

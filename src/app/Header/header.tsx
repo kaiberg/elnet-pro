@@ -51,10 +51,10 @@ export default function Header({slug}: HeaderProps) {
                     <LoginInfo/>
                 </div>
                 <div className={styles.mobile_right_side}>
-                    <button onClick={flipMobile}>
+                    <Button buttonType={'none'} onClick={flipMobile}>
                         <Icon icon={'Menu'}/>
                         <VisuallyHiddenClient>Toggle mobile menu</VisuallyHiddenClient>
-                    </button>
+                    </Button>
                     {showMobileMenu && <MobileMenu onClose={flipMobile}/>}
                 </div>
             </header>
