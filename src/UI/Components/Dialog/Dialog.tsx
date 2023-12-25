@@ -34,7 +34,7 @@ function ShowDialog(props: props) {
         if (!overlayRef.current) {
             throw new Error("OverlayRef is null");
         }
-        return createAriaHider(overlayRef.current);
+        return ariaHideAllOutsideofNode(overlayRef.current);
 
     }, [])
 
@@ -85,7 +85,7 @@ const DialogContent = React.forwardRef<HTMLDivElement, props>(
     }
 );
 
-function createAriaHider(dialogNode: HTMLElement) {
+function ariaHideAllOutsideofNode(dialogNode: HTMLElement) {
     let originalValues: any[] = [];
     let rootNodes: HTMLElement[] = [];
     let {ownerDocument} = dialogNode;

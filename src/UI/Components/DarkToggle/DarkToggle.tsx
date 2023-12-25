@@ -8,15 +8,17 @@ import {ThemeContextValue} from "@/UI/Tokens/Theme";
 import {colorVariants} from "@/UI/Tokens/Theme/constants";
 import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
 import Button, {ButtonProps} from "@/UI/Components/Button";
+import {useHasMounted} from "@/CustomHooks/useHasMounted";
 
 export type props = {
     iconProps?: FC<IconProps>
 } & Omit<ButtonProps<'button'>, 'children'>
 
 export default function DarkToggle({...props}: props) {
+    const hasMounted = useHasMounted();
     const themeProps = useThemeContext();
 
-    if (themeProps.colorMode === undefined) {
+    if (!hasMounted || themeProps.colorMode === undefined) {
         return null;
     }
 

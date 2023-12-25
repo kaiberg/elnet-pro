@@ -57,6 +57,10 @@
     gap: 0.5rem;
 }
 
+.mobile_button {
+    transform: translateX(16px);
+}
+
 .mobile_right_side {
     display: flex;
     justify-content: flex-end;

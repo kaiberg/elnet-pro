@@ -2,4 +2,5 @@
 @import "./Shape/variables.css";
 @import "./Typography/variables.css";
 @import "./Typography/styles.module.css";
+@import "./Theme/variables.css";
 @import "./Elevation/styles.module.css";

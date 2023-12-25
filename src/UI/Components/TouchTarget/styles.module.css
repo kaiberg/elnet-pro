@@ -12,13 +12,13 @@
 .container {
     background: transparent;
     cursor: pointer;
-    height: 48px;
+    min-height: 48px;
     min-width: 48px;
 }
 
-@media (--TABLET) {
+@media (pointer: fine) {
     .container {
-        height: 40px;
+        min-height: 40px;
         min-width: 32px;
     }
 }
