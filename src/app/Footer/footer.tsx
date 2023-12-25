@@ -20,8 +20,8 @@ export function FooterLinks({wrapper, pagesWrapper, legalWrapper, linkClass, lin
             <div>
                 <h1 className={linkTitleClass}>Pages</h1>
                 <div className={pagesWrapper}>
-                    <a href='' className={linkClass}>Latest</a>
-                    <a href='' className={linkClass}>Parks</a>
+                    <a href='/latest' className={linkClass}>Latest</a>
+                    <a href='/parks' className={linkClass}>Parks</a>
                 </div>
             </div>
             <div>

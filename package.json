@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
-    "@nivo/api": "^0.74.1",
-    "@nivo/line": "^0.84.0",
     "downsample": "^1.4.0",
     "eslint-config-standard": "^17.1.0",
     "lodash": "^4.17.21",
@@ -22,6 +20,7 @@
     "react-focus-lock": "^2.9.6",
     "react-hook-form": "^7.48.2",
     "react-remove-scroll": "^2.5.7",
+    "recharts": "^2.10.2",
     "styled-components": "^6.1.0",
     "swr": "^2.2.4",
     "zod": "^3.22.4"
