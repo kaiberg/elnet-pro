@@ -1,27 +1,41 @@
-.shape {
-
-}
-
 .shape-resting {
-
+    --20: color-mix(in hsl, var(--color-outline), transparent 80%);
+    --14: color-mix(in hsl, var(--color-outline), transparent 86%);
+    --12:color-mix(in hsl, var(--color-outline), transparent 88%);
+    box-shadow: var(--20) 0px 2px 1px -1px, var(--14) 0px 1px 1px 0px, var(--12) 0px 1px 3px 0px;
 }
 
 .shape-extra-low {
-
+    --20: color-mix(in hsl, var(--color-outline), transparent 80%);
+    --14: color-mix(in hsl, var(--color-outline), transparent 86%);
+    --12:color-mix(in hsl, var(--color-outline), transparent 88%);
+    box-shadow: var(--20) 0px 3px 3px -2px, var(--14) 0px 3px 4px 0px, var(--12) 0px 1px 8px 0px;
 }
 
 .shape-low {
-
+    --20: color-mix(in hsl, var(--color-outline), transparent 80%);
+    --14: color-mix(in hsl, var(--color-outline), transparent 86%);
+    --12:color-mix(in hsl, var(--color-outline), transparent 88%);
+    box-shadow: var(--20) 0px 3px 5px -1px, var(--14) 0px 6px 10px 0px, var(--12) 0px 1px 18px 0px;
 }
 
 .shape-medium {
-
+    --20: color-mix(in hsl, var(--color-outline), transparent 80%);
+    --14: color-mix(in hsl, var(--color-outline), transparent 86%);
+    --12:color-mix(in hsl, var(--color-outline), transparent 88%);
+    box-shadow: var(--20) 0px 3px 5px -1px, var(--14) 0px 6px 10px 0px, var(--12) 0px 1px 18px 0px;
 }
 
 .shape-high {
-
+    --20: color-mix(in hsl, var(--color-outline), transparent 80%);
+    --14: color-mix(in hsl, var(--color-outline), transparent 86%);
+    --12:color-mix(in hsl, var(--color-outline), transparent 88%);
+    box-shadow: var(--20) 0px 3px 5px -1px, var(--14) 0px 6px 10px 0px, var(--12) 0px 1px 18px 0px;
 }
 
 .shape-extra-high {
-
+    --20: color-mix(in hsl, var(--color-outline), transparent 80%);
+    --14: color-mix(in hsl, var(--color-outline), transparent 86%);
+    --12:color-mix(in hsl, var(--color-outline), transparent 88%);
+    box-shadow: var(--20) 0px 3px 5px -1px, var(--14) 0px 6px 10px 0px, var(--12) 0px 1px 18px 0px;
 }
