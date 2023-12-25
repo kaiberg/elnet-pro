@@ -7,11 +7,6 @@ export const colorVariants : { light: lightColorType, dark: darkColorType } = {
     dark: 'dark' as const
 };
 
-export const KEYS = {
-    COLOR_MODE_KEY: 'color-mode',
-    INITIAL_COLOR_MODE_CSS_PROP: '--initial-color-mode'
-}
-
 // --color-primary-container-light: #6ff6f9;
 // --color-on-primary-container-light: #002020;
 // --color-tertiary-container-light: #6ff6f9;
@@ -37,6 +32,8 @@ export const KEYS = {
 // --color-inverse-surface-dark: #e0e3e2;
 // --color-inverse-primary-dark: #00696b;
 // --color-outline-variant-dark: #3f4949;
+
+export const DarkModeVariableName = 'data-color-mode';
 
 export const COLORS = {
     background: {

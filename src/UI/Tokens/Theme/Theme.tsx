@@ -1,8 +1,9 @@
 'use client'
 import React from "react";
-import {COLORS, ColorTypes, KEYS} from "@/UI/Tokens/Theme/constants";
-import {setRootColors} from "@/UI/Tokens/Theme/setColorsByTheme";
-// export * from './constants';
+import {COLORS, ColorTypes, DarkModeVariableName} from "@/UI/Tokens/Theme/constants";
+import {setDarkModeCookie} from "@/UI/Tokens/Theme/actions";
+import {getInitialTheme} from "@/UI/Tokens/Theme/setColorsByTheme";
+import cookies from "js-cookie";
 
 export type ThemeContextValue = { colorMode: string | undefined; setColorMode: (value: ColorTypes) => void; }
 export const ThemeContext = React.createContext<ThemeContextValue | undefined>(undefined);
@@ -12,23 +13,25 @@ type props = {
 }
 
 export default function ThemContextProvider({children} : props) {
-    const [colorMode, setRawColorMode] = React.useState<undefined | string>(undefined);
+    const [colorMode, setRawColorMode] = React.useState<string | undefined>(cookies.get(DarkModeVariableName));
     
     React.useEffect(() => {
-        const {documentElement, body} = window.document;
-
-        body.style.setProperty("transition", "color var(--animation-duration-medium3) ease 0s, background var(--animation-duration-medium3) ease 0s");
-        const initialSyle = documentElement.style.getPropertyValue(KEYS.INITIAL_COLOR_MODE_CSS_PROP);
-        setRawColorMode(initialSyle);
+        const {documentElement} = window.document;
+        documentElement.style.setProperty("transition", "color var(--animation-duration-medium3) ease 0s, background var(--animation-duration-medium3) ease 0s");
+        if(!documentElement.getAttribute(DarkModeVariableName)) {
+            const prefersDarkMediaQuery = window.matchMedia('prefers-color-scheme: dark');
+            setColorMode(prefersDarkMediaQuery ? 'dark' : 'light');
+        }
     }, [])
 
     function setColorMode(value: string) {
         const {documentElement} = window.document;
         setRawColorMode(value);
-        console.log(value, KEYS.COLOR_MODE_KEY);
-        window.localStorage.setItem(KEYS.COLOR_MODE_KEY, value);
-
-        setRootColors(COLORS, value, documentElement);
+        if(value === 'light' || value === 'dark') {
+            console.log(`setColorMode changing theme to ${value}`)
+            setDarkModeCookie(value);
+            documentElement.setAttribute(DarkModeVariableName, value);
+        }
     }
     
     const ProviderValue = React.useMemo(() => {
