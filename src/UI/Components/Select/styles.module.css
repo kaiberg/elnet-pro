@@ -1,0 +1,54 @@
+.portal {
+    background: var(--color-background);
+    border-radius: var(--shape-small);
+}
+
+.scroll_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    cursor: default;
+}
+
+.trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    padding: 0 15px;
+    font-size: 13px;
+    line-height: 1;
+    height: 35px;
+    gap: 5px;
+    background-color: var(--color-background);
+}
+
+.viewport {
+    padding: 6px;
+}
+
+.selectItem {
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    height: 25px;
+    padding: 0 35px 0 25px;
+    position: relative;
+    user-select: none;
+}
+
+.selectItemIc {
+    position: absolute;
+    left: 0;
+    width: 25px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.separator {
+    height: 1px;
+    background-color: var(--color-primary);
+    margin: 5px;
+}

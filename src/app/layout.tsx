@@ -9,6 +9,7 @@ import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
 import {BODY_LARGE} from "@/UI/Tokens/Typography";
 import {DarkModeVariableName} from "@/UI/Tokens/Theme/constants";
 import {cookies} from "next/headers";
+import styles from './layout.module.css';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-color-mode={cookies().get(DarkModeVariableName)?.value}>
-      <body className={ConcatClasses(inter.className, BODY_LARGE)}>
+      <body className={ConcatClasses(inter.className, BODY_LARGE, styles.animation)}>
         <ThemContextProvider>
           <SkipToContent/>
           <Header slug='' />

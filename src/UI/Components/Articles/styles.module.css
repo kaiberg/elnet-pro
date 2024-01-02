@@ -1,0 +1,19 @@
+.title {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-primary);
+    text-align: center;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.article {
+    margin-top: 32px;
+}
+
+.articleTitle {
+    color: var(--color-secondary);
+}
+
+.article:first-of-type {
+    margin-top: 0;
+}

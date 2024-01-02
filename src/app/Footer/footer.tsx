@@ -4,6 +4,7 @@ import globalStyles from '@/app/styles.module.css';
 import styles from './styles.module.css';
 import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
 import {BODY_SMALL} from "@/UI/Tokens/Typography";
+import Link from "next/link";
 
 type cssClass = string | undefined
 export type FooterLinksProps = {
@@ -20,16 +21,16 @@ export function FooterLinks({wrapper, pagesWrapper, legalWrapper, linkClass, lin
             <div>
                 <h1 className={linkTitleClass}>Pages</h1>
                 <div className={pagesWrapper}>
-                    <a href='/latest' className={linkClass}>Latest</a>
-                    <a href='/parks' className={linkClass}>Parks</a>
+                    <Link href='/parks/latest' className={linkClass}>Latest</Link>
+                    <Link href='/parks' className={linkClass}>Parks</Link>
                 </div>
             </div>
             <div>
                 <h1 className={linkTitleClass}>Links</h1>
                 <div className={legalWrapper}>
-                    <a href='' className={linkClass}>Contact</a>
-                    <a href='' className={linkClass}>Terms of use</a>
-                    <a href='' className={linkClass}>Privacy Policy</a>
+                    <Link href='/contact' className={linkClass}>Contact</Link>
+                    <Link href='/terms' className={linkClass}>Terms of use</Link>
+                    <Link href='/privacy' className={linkClass}>Privacy Policy</Link>
                 </div>
             </div>
         </div>

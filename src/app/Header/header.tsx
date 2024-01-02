@@ -20,6 +20,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {DISPLAY_MEDIUM, HEADLINE_MEDIUM, TITLE_MEDIUM} from "@/UI/Tokens/Typography";
 import {useHasMounted} from "@/CustomHooks/useHasMounted";
 import {FooterLinks} from "@/app/Footer/footer";
+import Link from "next/link";
 
 export type HeaderProps = {
     slug: string
@@ -41,8 +42,8 @@ export default function Header({slug}: HeaderProps) {
                 <div className={styles.left_side}>
                     <Logo className={styles.logo}/>
                     <nav className={styles.links}>
-                        <a className={ConcatClasses(TITLE_MEDIUM, styles.link)} href='/'>Overview</a>
-                        <a className={ConcatClasses(TITLE_MEDIUM, styles.link)} href='/parks'>Parks</a>
+                        <Link className={ConcatClasses(TITLE_MEDIUM, styles.link)} href='/parks/latest'>Latest</Link>
+                        <Link className={ConcatClasses(TITLE_MEDIUM, styles.link)} href='/parks'>Parks</Link>
                     </nav>
                 </div>
                 {/* login / controls */}
@@ -156,7 +157,9 @@ function NotLoggedIn() {
                             </VisuallyHiddenClient>
                             <TextField classes={dialogStyles.input} placeholder="Username"
                                        id={usernameId} {...register('username')} autoComplete={'username'}/>
-                            <p>{formState.errors.username?.message}</p>
+                            <div role={'alert'}>
+                                <p>{formState.errors.username?.message}</p>
+                            </div>
                         </div>
 
                         <div className={dialogStyles.dialogItem}>
@@ -165,7 +168,9 @@ function NotLoggedIn() {
                             </VisuallyHiddenClient>
                             <TextField placeholder="Password" type={"password"} classes={dialogStyles.input}
                                        id={passwordId} {...register('password')} autoComplete={'current-password'}/>
-                            <p>{formState.errors.password?.message}</p>
+                            <div role={'alert'}>
+                                <p>{formState.errors.password?.message}</p>
+                            </div>
                         </div>
 
                         <div className={dialogStyles.dialogItem}>

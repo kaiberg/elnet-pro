@@ -1,0 +1,4 @@
+.border {
+    border-radius: var(--shape-small);
+    background: var(--color-surface);
+}
