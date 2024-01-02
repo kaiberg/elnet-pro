@@ -37,7 +37,7 @@ function DarkToggleNotNull({colorMode, setColorMode, iconProps, classes, ...butt
     const opposite = (isDarkMode) ? light : dark
 
     return (
-        <Button classes={ConcatClasses(styles.button, classes)} {...buttonProps} onClick={() => {
+        <Button buttonType={'none'} classes={ConcatClasses(styles.button, classes)} {...buttonProps} onClick={() => {
             setColorMode(opposite);
         }}>
             <Icon icon={icon} className={styles.logo} width={process.env.iconSize} height={process.env.iconSize} strokeWidth={1.5} {...iconProps}/>

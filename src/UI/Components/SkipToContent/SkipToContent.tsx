@@ -10,7 +10,7 @@ export type SkipToContentProps = {
     props?: ComponentPropsWithoutRef<'a'>
 }
 
-export default function SkipToContent({href = process.env.skipToContentHref, classes, children, ...props} : SkipToContentProps) {
+export default function SkipToContent({href = `#${process.env.skipToContentHref}`, classes, children, ...props} : SkipToContentProps) {
     if(typeof href !== 'string') {
         throw new Error(`Skip to main content href was not a string, actual values: ${formatVariable('href',href)}`)
     }

@@ -3,7 +3,7 @@ const nextConfig = {
     env: {
         iconSize: '24',
         svgStroke: '1.5',
-        skipToContentHref: '#elnet_main_content'
+        skipToContentHref: 'elnet_main_content'
     }
 }
 

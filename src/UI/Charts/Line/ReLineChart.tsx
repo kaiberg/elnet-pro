@@ -1,8 +1,10 @@
 import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import React from "react";
+import React, {useId} from "react";
 import styles from './styles.module.css'
 import {Props} from 'recharts/types/component/ResponsiveContainer'
 import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
+import {VisuallyHiddenClient} from "@/UI/Components/VisuallyHidden";
+import {AccessibleToolTip} from "@/UI/Charts/AccessibleTooltip";
 
 export type ReLineChartProps = {
     classes?: string | undefined
@@ -49,25 +51,32 @@ const data = [
         "name": "Page G",
         "uv": 3490,
         "pv": 4300,
-        "amt": 2100
+        "amt": 2100,
+        "test":500
     }
 ]
 
 export function ReLineChart({classes, ...props} : ReLineChartProps) {
+    const id = useId();
 
     return (
-        <ResponsiveContainer width={400} height={400} className={ConcatClasses(styles.wrapper, classes)} {...props}>
+        <>
+            <VisuallyHiddenClient id={`${id}-controls`}>
+                use the left arrow key to navigate to the previous datapoint, and the right to the next datapoint
+            </VisuallyHiddenClient>
+        <ResponsiveContainer width={'100%'} height={400} className={ConcatClasses(styles.wrapper, classes)} {...props}>
             <LineChart accessibilityLayer width={730} height={250} data={data}
-                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                       margin={{top: 5, right: 30, left: 20, bottom: 5}} aria-describedby={`${id}-controls`} aria-label={'chart'}>
                 <CartesianGrid strokeDasharray="3 3"/>
                 <XAxis dataKey="name"/>
                 <YAxis/>
-                <Tooltip />
+                <Tooltip content={<AccessibleToolTip/>}/>
                 <Legend/>
                 <Line type="monotone" dataKey="pv" stroke={'var(--color-primary)'}/>
                 <Line type="monotone" dataKey="uv"/>
             </LineChart>
         </ResponsiveContainer>
+        </>
 
     )
 }

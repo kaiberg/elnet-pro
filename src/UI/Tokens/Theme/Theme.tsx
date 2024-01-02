@@ -17,7 +17,6 @@ export default function ThemContextProvider({children} : props) {
     
     React.useEffect(() => {
         const {documentElement} = window.document;
-        documentElement.style.setProperty("transition", "color var(--animation-duration-medium3) ease 0s, background var(--animation-duration-medium3) ease 0s");
         if(!documentElement.getAttribute(DarkModeVariableName)) {
             const prefersDarkMediaQuery = window.matchMedia('prefers-color-scheme: dark');
             setColorMode(prefersDarkMediaQuery ? 'dark' : 'light');

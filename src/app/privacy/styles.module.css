@@ -1,0 +1,29 @@
+.list {
+    list-style: none;
+    counter-reset: item;
+    margin-bottom: 16px;
+}
+
+.list > li {
+    margin-left: 16px;
+    counter-increment: item;
+}
+
+.list > li:before {
+    color: var(--color-tertiary);
+    content: counter(item)'.';
+    margin-right: 8px;
+}
+
+.list > li > strong:first-of-type::after {
+    font-weight: var(--font-weight-regular);
+    content: ' - ';
+}
+
+.list > li > strong {
+    font-weight: var(--font-weight-medium);
+}
+
+.link {
+    color: var(--color-tertiary)
+}
