@@ -10,6 +10,8 @@ import {BODY_LARGE} from "@/UI/Tokens/Typography";
 import {DarkModeVariableName} from "@/UI/Tokens/Theme/constants";
 import {cookies} from "next/headers";
 import styles from './layout.module.css';
+import getUserDetails from "@/UI/Components/Authorization";
+import NotLoggedIn from "@/UI/Components/NotLoggedIn";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,19 +20,22 @@ export const metadata: Metadata = {
   description: 'A Graph Dashboard',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+
+  const user = await getUserDetails();
+
   return (
     <html lang="en" data-color-mode={cookies().get(DarkModeVariableName)?.value}>
       <body className={ConcatClasses(inter.className, BODY_LARGE, styles.animation)}>
         <ThemContextProvider>
           <SkipToContent/>
-          <Header slug='' />
+          <Header slug='' user={user} />
           <main>
-            {children}
+            {user === undefined ? <NotLoggedIn/> : children}
           </main>
           <Footer />
         </ThemContextProvider>

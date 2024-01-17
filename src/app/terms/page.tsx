@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const TermsArticles : ArticlesProps['articles'] = [
     {
       content: <p>
-          By using or paying for Ewii's Elnet Proservice, you agree to these terms. Any material changes to these terms will be notified via a prominent notice on mullvad.net/blog at least one month before the changes are applied. If you wish to exercise your right to reject such changes, you should stop using the service (for refunds, see below).
+          By using or paying for Ewii{'\''}s Elnet Proservice, you agree to these terms. Any material changes to these terms will be notified via a prominent notice on mullvad.net/blog at least one month before the changes are applied. If you wish to exercise your right to reject such changes, you should stop using the service (for refunds, see below).
       </p>
     },
     {
