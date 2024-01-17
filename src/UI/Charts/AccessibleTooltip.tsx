@@ -1,8 +1,6 @@
 import React from "react";
 
 export function AccessibleToolTip(props : any) {
-
-    console.log(props)
     return (
         <div role="status" aria-live={"assertive"}>
             <h1>{props.label}</h1>

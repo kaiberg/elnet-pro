@@ -31,11 +31,11 @@ function Parks(props: ParksListProps) {
     return (
         <div className={globalStyles.maxwidth_wrapper}>
 
-                <ParksWrapper {...props}>
-                    <Suspense fallback={<ExampleCards {...props}/>}>
-                        <ParksList {...props}/>
-                    </Suspense>
-                </ParksWrapper>
+            <ParksWrapper {...props}>
+                <Suspense fallback={<ExampleCards {...props}/>}>
+                    <ParksList {...props}/>
+                </Suspense>
+            </ParksWrapper>
 
         </div>
     )
@@ -57,34 +57,33 @@ async function ParksList({title = 'Parks', type = 'all'}: ParksListProps) {
 
     return (
         <>
-                {parks.map(props => (
-                    <ParkCard key={props.id} {...props}/>
-                ))}
+            {parks.map(props => (
+                <ParkCard key={props.id} {...props}/>
+            ))}
         </>
 
     )
 }
 
-function ExampleCards({ loadingCards = 5 }: ParksListProps) {
-    loadingCards = clamp(loadingCards, 0,50);
+function ExampleCards({loadingCards = 5}: ParksListProps) {
+    loadingCards = clamp(loadingCards, 0, 50);
 
     return (
         range(0, loadingCards, 1).map(value => (
-            <Card classes={ConcatClasses(styles.item)}>
-                <div className={styles.Loading}>
-                    <div className={ConcatClasses(styles.itemTitle, styles.itemTitleLoading)}>
-                        <h2 className={ConcatClasses(TITLE_MEDIUM, styles.titleLoading)}></h2>
-                        <div className={styles.statusLoading}>
+                <Card key={value} classes={ConcatClasses(styles.item)}>
+                    <div className={styles.Loading}>
+                        <div className={ConcatClasses(styles.itemTitle, styles.itemTitleLoading)}>
+                            <h2 className={ConcatClasses(TITLE_MEDIUM, styles.titleLoading)}></h2>
+                            <div className={styles.statusLoading}>
+                            </div>
+                        </div>
+                        <div className={styles.descLoading}>
+                            <div/>
+                            <div/>
                         </div>
                     </div>
-                    <div className={styles.descLoading}>
-                        <div/>
-                        <div/>
-                    </div>
-                </div>
-            </Card>
-        )
-
+                </Card>
+            )
         )
     )
 }
