@@ -2,7 +2,6 @@
 import React from "react";
 import {COLORS, ColorTypes, DarkModeVariableName} from "@/UI/Tokens/Theme/constants";
 import {setDarkModeCookie} from "@/UI/Tokens/Theme/actions";
-import {getInitialTheme} from "@/UI/Tokens/Theme/setColorsByTheme";
 import cookies from "js-cookie";
 
 export type ThemeContextValue = { colorMode: string | undefined; setColorMode: (value: ColorTypes) => void; }
@@ -24,13 +23,14 @@ export default function ThemContextProvider({children} : props) {
     }, [])
 
     function setColorMode(value: string) {
+        if(value !== 'light' && value !== 'dark')
+            return;
+
         const {documentElement} = window.document;
         setRawColorMode(value);
-        if(value === 'light' || value === 'dark') {
-            console.log(`setColorMode changing theme to ${value}`)
-            setDarkModeCookie(value);
-            documentElement.setAttribute(DarkModeVariableName, value);
-        }
+        console.log(`setColorMode changing theme to ${value}`)
+        setDarkModeCookie(value);
+        documentElement.setAttribute(DarkModeVariableName, value);
     }
     
     const ProviderValue = React.useMemo(() => {
