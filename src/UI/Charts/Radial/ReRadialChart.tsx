@@ -24,7 +24,7 @@ type RadialDataPoint = {
 }
 
 export type RadialChartProps = {
-    data: RadialDataPoint[]
+    data?: RadialDataPoint[]
     classes?: string | undefined
 } & Omit<Props, 'className' | 'children'>
 

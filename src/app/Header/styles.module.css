@@ -2,6 +2,29 @@
     background-color: var(--background-color);
 }
 
+.error {
+    color: var(--color-error);
+}
+
+.userprofile_card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.userprofile_section {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+}
+
+.userprofile_logout {
+    padding-left: 0;
+}
+
 .wrapper {
     display: flex;
     align-items: center;

@@ -21,12 +21,18 @@ import {DISPLAY_MEDIUM, HEADLINE_MEDIUM, TITLE_MEDIUM} from "@/UI/Tokens/Typogra
 import {useHasMounted} from "@/CustomHooks/useHasMounted";
 import {FooterLinks} from "@/app/Footer/footer";
 import Link from "next/link";
-
+import {loginStatus, loginUser, UserDetails} from "@/UI/Components/Authorization";
+import { useRouter } from 'next/navigation'
+import {LoginInfo} from "@/app/Header/LoginInfo/LoginInfo";
 export type HeaderProps = {
-    slug: string
+    slug: string,
+} & UserProps
+
+export type UserProps = {
+    user: UserDetails | undefined
 }
 
-export default function Header({slug}: HeaderProps) {
+export default function Header({slug, user}: HeaderProps) {
     const path = usePathname();
     const [showMobileMenu, setShowMobileMenu] = React.useState(false);
     const flipMobile = React.useCallback(() => {
@@ -49,21 +55,21 @@ export default function Header({slug}: HeaderProps) {
                 {/* login / controls */}
                 <div className={styles.right_side}>
                     <DarkToggle/>
-                    <LoginInfo/>
+                    <LoginInfo user={user}/>
                 </div>
                 <div className={styles.mobile_right_side}>
                     <Button buttonType={'none'} onClick={flipMobile}>
                         <Icon icon={'Menu'}/>
                         <VisuallyHiddenClient>Toggle mobile menu</VisuallyHiddenClient>
                     </Button>
-                    {showMobileMenu && <MobileMenu onClose={flipMobile}/>}
+                    {showMobileMenu && <MobileMenu user={user} onClose={flipMobile}/>}
                 </div>
             </header>
         </div>
     )
 }
 
-function MobileMenu(props: { onClose: () => void }) {
+function MobileMenu(props: { onClose: () => void} & UserProps) {
     const id = useId();
     const handleEvent = (e: React.MouseEvent<any> | React.KeyboardEvent<any>): void => {
         if (e.nativeEvent instanceof KeyboardEvent && e.nativeEvent.key === 'Escape'){
@@ -92,122 +98,11 @@ function MobileMenu(props: { onClose: () => void }) {
                     <FooterLinks linkTitleClass={DISPLAY_MEDIUM} linkClass={HEADLINE_MEDIUM} pagesWrapper={mobileDialogStyles.links_wrapper} legalWrapper={mobileDialogStyles.links_wrapper}/>
                     <div className={mobileDialogStyles.bottom_actions} {...stopPropogation}>
                         <DarkToggle/>
-                        <LoginInfo/>
+                        <LoginInfo user={props.user}/>
                     </div>
                 </nav>
             </>
 
         </Dialog>
-    )
-}
-
-function LoginInfo() {
-    const hasMounted = useHasMounted();
-    const loggedIn = false;
-
-    if(!hasMounted) {
-        return null
-    }
-
-    if(loggedIn) {
-        return (
-            <LoggedIn/>
-        )
-    }
-
-    return (
-        <NotLoggedIn/>
-    )
-}
-
-function NotLoggedIn() {
-    const id = useId();
-    const [showLoginModal, setShowLoginModal] = useState(false);
-
-    const {register, handleSubmit, formState, watch} = useForm<TLoginSchema>({
-        resolver: zodResolver(LoginSchema),
-        defaultValues: {
-            username: '',
-            password: ''
-        }
-    })
-
-    const title = `${id}-login-title`;
-    const usernameId = `${id}-username`;
-    const passwordId = `${id}-password`;
-
-    function flip() {
-        setShowLoginModal(p => !p);
-    }
-
-    const handleValidSubmit: SubmitHandler<TLoginSchema> = ({username, password}: TLoginSchema) => {
-        console.log(`user logged in with ${username}, ${password}`)
-    }
-
-    return (
-        <React.Fragment>
-            {showLoginModal && <Dialog onClose={flip} overlayClasses={dialogStyles.overlay} contentClasses={dialogStyles.container}
-                          aria-labelledby={title}>
-                <div className={dialogStyles.wrapper}>
-                    <VisuallyHiddenClient as={'h1'} id={title}>Log In</VisuallyHiddenClient>
-                    <form onSubmit={handleSubmit(handleValidSubmit)}>
-                        <div className={dialogStyles.dialogItem}>
-                            <VisuallyHiddenClient as={'label'} htmlFor={usernameId}>
-                                Username field
-                            </VisuallyHiddenClient>
-                            <TextField classes={dialogStyles.input} placeholder="Username"
-                                       id={usernameId} {...register('username')} autoComplete={'username'}/>
-                            <div role={'alert'}>
-                                <p>{formState.errors.username?.message}</p>
-                            </div>
-                        </div>
-
-                        <div className={dialogStyles.dialogItem}>
-                            <VisuallyHiddenClient as={'label'} htmlFor={passwordId}>
-                                Password field
-                            </VisuallyHiddenClient>
-                            <TextField placeholder="Password" type={"password"} classes={dialogStyles.input}
-                                       id={passwordId} {...register('password')} autoComplete={'current-password'}/>
-                            <div role={'alert'}>
-                                <p>{formState.errors.password?.message}</p>
-                            </div>
-                        </div>
-
-                        <div className={dialogStyles.dialogItem}>
-                            <Button classes={dialogStyles.loginButton} buttonType={'filled'} type={'submit'}>Sign in</Button>
-                        </div>
-                    </form>
-                    <button className={dialogStyles.close_button} onClick={flip}>
-                        <Icon aria-hidden={'true'} icon={'X'} width={32} height={32}/>
-                        <VisuallyHidden>Close</VisuallyHidden>
-                    </button>
-
-                    {process.env.NODE_ENV !== 'production' && <pre>
-                        {JSON.stringify(watch(), null, 2)}
-                    </pre>}
-                </div>
-            </Dialog>}
-            {/*ConcatClasses(buttonStyles.container, buttonStyles.icon_container, styles.login_button)*/}
-            <Button buttonType={'filled'} onClick={flip}>
-                Log in
-            </Button>
-        </React.Fragment>
-    );
-}
-
-function LoggedIn() {
-    const username = 'kaidel045'
-    const firstLetter = username.substring(0, 1).toUpperCase();
-
-    return (
-        <Button classes={styles.userprofile_button}>
-            <span className={ConcatClasses(styles.userprofile, ICON_TOUCHTARGET_CLASS)}>
-                {/*<Icon icon={'User'} />*/}
-                <span aria-hidden={"true"}>{firstLetter}</span>
-                <VisuallyHiddenClient>
-                    User Profile
-                </VisuallyHiddenClient>
-            </span>
-        </Button>
     )
 }
