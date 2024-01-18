@@ -151,18 +151,3 @@ export async function getParks() {
 
     return parks;
 }
-
-async function getUserDetails() {
-    const token = cookies().get('token')?.value
-    return getUser(token);
-}
-
-const getUser = cache(async (token : string | undefined) => {
-    if(typeof token !== "string")
-        return undefined;
-
-    // return  response = await fetch({}, '')
-    return "";
-})
-
-export default getUserDetails;

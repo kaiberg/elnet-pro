@@ -21,9 +21,10 @@ import {DISPLAY_MEDIUM, HEADLINE_MEDIUM, TITLE_MEDIUM} from "@/UI/Tokens/Typogra
 import {useHasMounted} from "@/CustomHooks/useHasMounted";
 import {FooterLinks} from "@/app/Footer/footer";
 import Link from "next/link";
-import {loginStatus, loginUser, UserDetails} from "@/UI/Components/Authorization";
+import {loginStatus, loginUser} from "../../Helpers/Networking/Authorization";
 import { useRouter } from 'next/navigation'
 import {LoginInfo} from "@/app/Header/LoginInfo/LoginInfo";
+import {UserDetails} from "@/app/api/auth/details/route";
 export type HeaderProps = {
     slug: string,
 } & UserProps

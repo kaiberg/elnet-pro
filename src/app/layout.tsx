@@ -10,7 +10,7 @@ import {BODY_LARGE} from "@/UI/Tokens/Typography";
 import {DarkModeVariableName} from "@/UI/Tokens/Theme/constants";
 import {cookies} from "next/headers";
 import styles from './layout.module.css';
-import getUserDetails from "@/UI/Components/Authorization";
+import getUserDetails from "../Helpers/Networking/Authorization";
 import NotLoggedIn from "@/UI/Components/NotLoggedIn";
 
 const inter = Inter({ subsets: ['latin'] })
