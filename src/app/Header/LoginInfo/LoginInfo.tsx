@@ -12,12 +12,13 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import styles from "../styles.module.css"
 import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
 import {ICON_TOUCHTARGET_CLASS} from "@/UI/Components/TouchTarget";
-import {loginStatus, loginUser, logoutUser, UserDetails} from "@/UI/Components/Authorization";
+import {loginStatus, loginUser, logoutUser} from "../../../Helpers/Networking/Authorization";
 import dialogStyles from '../dialog.module.css'
 import {UserProps} from "@/app/Header";
 import {DialogTrigger, OverlayArrow, Popover, Dialog as AriaDialog, Button as AriaButton} from "react-aria-components";
 import Card from "@/UI/Components/Card";
 import {LogOut} from "react-feather";
+import {UserDetails} from "@/app/api/auth/details/route";
 
 
 export function LoginInfo({user}: UserProps) {
@@ -150,7 +151,7 @@ export function LoggedIn({email}: UserDetails) {
                 <AriaDialog>
                     <Card classes={styles.userprofile_card}>
                         <div className={styles.userprofile_section}>
-                            <div classes={styles.userprofile_button}>
+                            <div className={styles.userprofile_button}>
                                     <span className={ConcatClasses(styles.userprofile, ICON_TOUCHTARGET_CLASS)}>
                                         <span aria-hidden={"true"}>{firstLetter}</span>
                                     </span>
@@ -160,14 +161,15 @@ export function LoggedIn({email}: UserDetails) {
                             </h1>
                         </div>
 
+                        <div className={styles.seperator} aria-hidden={"true"}/>
 
-                        <div className={styles.userprofile_section}>
-                            <LogOut/>
-                            <Button classes={styles.userprofile_logout} onClick={() => {
+                            <Button buttonType={'text'} classes={ConcatClasses(styles.userprofile_section, styles.logout_button)} onClick={() => {
                                 logoutUser();
                                 router.refresh();
-                            }}>Log Out</Button>
-                        </div>
+                            }}>
+                                <Icon icon={'LogOut'} color={'var(--color-on-surface)'} fill={'transparent'}/>
+                                Log Out
+                            </Button>
 
                     </Card>
                 </AriaDialog>
