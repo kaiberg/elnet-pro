@@ -57,9 +57,15 @@ async function ParksList({title = 'Parks', type = 'all'}: ParksListProps) {
 
     return (
         <>
-            {parks.map(props => (
-                <ParkCard key={props.id} {...props}/>
-            ))}
+            {parks === undefined ?
+                <div>
+                    <h1 className={HEADLINE_MEDIUM}>Error</h1>
+                    <p>There was an error getting the parks.</p>
+                </div> :
+                parks.map(props => (
+                    <ParkCard key={props.id} {...props}/>
+                ))
+            }
         </>
 
     )

@@ -149,7 +149,7 @@ export function LoggedIn({email}: UserDetails) {
             <Popover placement={'bottom end'}>
                 <OverlayArrow/>
                 <AriaDialog>
-                    <Card classes={styles.userprofile_card}>
+                    <Card classes={styles.userprofile_card} BorderType={'large'}>
                         <div className={styles.userprofile_section}>
                             <div className={styles.userprofile_button}>
                                     <span className={ConcatClasses(styles.userprofile, ICON_TOUCHTARGET_CLASS)}>
