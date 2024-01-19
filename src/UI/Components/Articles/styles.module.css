@@ -1,9 +1,13 @@
+.container {
+    min-height: 65dvh;
+}
+
 .title {
     font-weight: var(--font-weight-medium);
     color: var(--color-primary);
     text-align: center;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
+    margin-top: 5dvh;
+    margin-bottom: 5dvh;
 }
 
 .article {

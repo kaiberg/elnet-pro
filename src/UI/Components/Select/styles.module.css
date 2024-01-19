@@ -38,6 +38,11 @@
     user-select: none;
 }
 
+.selectItem:hover, .selectItem:focus {
+    background: color-mix(in hsl, var(--color-primary), transparent 50%);
+    color: var(--color-background);
+}
+
 .selectItemIc {
     position: absolute;
     left: 0;

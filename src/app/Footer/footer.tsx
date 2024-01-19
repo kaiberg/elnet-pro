@@ -28,7 +28,7 @@ export function FooterLinks({wrapper, pagesWrapper, legalWrapper, linkClass, lin
             <div>
                 <h1 className={linkTitleClass}>Links</h1>
                 <div className={legalWrapper}>
-                    <Link href='/contact' className={linkClass}>Contact</Link>
+                    <Link href="mailto:support@elnetpro.com" className={linkClass}>Contact</Link>
                     <Link href='/terms' className={linkClass}>Terms of use</Link>
                     <Link href='/privacy' className={linkClass}>Privacy Policy</Link>
                 </div>
