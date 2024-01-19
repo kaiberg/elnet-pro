@@ -1,4 +1,51 @@
 .border {
-    border-radius: var(--shape-small);
     background: var(--color-surface);
+}
+
+.none {
+    border-radius: var(--shape-none);
+}
+
+.extra-small {
+    border-radius: var(--shape-extra-small);
+}
+
+.extra-small-top {
+    border-radius: var(--shape-extra-small-top);
+}
+
+.small {
+    border-radius: var(--shape-small);
+}
+
+.medium {
+    border-radius: var(--shape-medium);
+}
+
+.large {
+    border-radius: var(--shape-large);
+}
+
+.large-end {
+    border-radius: var(--shape-large-end);
+}
+
+.large-start {
+    border-radius: var(--shape-large-start);
+}
+
+.large-top {
+    border-radius: var(--shape-large-top);
+}
+
+.extra-large {
+    border-radius: var(--shape-extra-large);
+}
+
+.extra-large-top {
+    border-radius: var(--shape-extra-large-top);
+}
+
+.full {
+    border-radius: var(--shape-full);
 }
