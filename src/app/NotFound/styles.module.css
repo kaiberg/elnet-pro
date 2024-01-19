@@ -17,13 +17,13 @@
 }
 
 .wrapper {
-    margin-block-start: 10vh;
-    margin-block-end: 10vh;
+    margin-block-start: 10dvh;
+    margin-block-end: 10dvh;
 }
 
 @media (--MOBILE) {
     .wrapper {
-        --y-spacing: 40vh;
+        --y-spacing: 40dvh;
         --y-max: 32rem;
         --y-half: max(calc(var(--y-spacing) / 2), calc(var(--y-max) / 2));
         margin-block-end: var(--y-half);

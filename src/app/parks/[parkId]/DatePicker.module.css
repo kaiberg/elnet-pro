@@ -28,9 +28,9 @@
 
 @media (--TABLET) {
     .container {
-        margin: 10vh auto;
+        margin: 10dvh auto;
         height: auto;
-        width: 50vh;
+        width: 50dvh;
         border-radius: var(--shape-extra-large);
     }
 }

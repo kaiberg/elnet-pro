@@ -6,7 +6,7 @@
 }
 
 .content {
-    margin: 10vh auto;
+    margin: 10dvh auto;
     background: var(--color-surface);
     padding: 2rem;
     outline: none;

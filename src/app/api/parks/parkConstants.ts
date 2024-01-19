@@ -123,4 +123,4 @@ export const parkConstants: Park[] = [
     },
 ]
 
-export const fakeDelayMS = 3000;
+export const fakeDelayMS= 3000;

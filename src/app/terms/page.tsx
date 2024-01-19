@@ -1,7 +1,7 @@
 import Articles, {ArticlesProps} from "@/UI/Components/Articles";
 import {Metadata} from "next";
 
-const title = 'Terms of service';
+const title = 'Terms of use';
 
 export const metadata: Metadata = {
     title,
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const TermsArticles : ArticlesProps['articles'] = [
     {
       content: <p>
-          By using or paying for Ewii{'\''}s Elnet Proervice, you agree to these terms. Any material changes to these terms will be notified via a prominent notice on mullvad.net/blog at least one month before the changes are applied. If you wish to exercise your right to reject such changes, you should stop using the service (for refunds, see below).
+          By using or paying for Ewii{'\''}s Elnet Pro service, you agree to these terms. Any material changes to these terms will be notified via a prominent notice at least one month before the changes are applied. If you wish to exercise your right to reject such changes, you should stop using the service (for refunds, see below).
       </p>
     },
     {
@@ -36,7 +36,7 @@ const TermsArticles : ArticlesProps['articles'] = [
         </p>
     },
     {
-        title: 'The service',
+        title: 'Refunds',
         content: <p>
             This cookie policy is subject to periodic updates, so we recommend checking back regularly for any changes.
             For any inquiries regarding this cookie policy, please see contact information in our Privacy Policy.

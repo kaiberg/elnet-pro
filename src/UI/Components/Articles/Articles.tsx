@@ -28,7 +28,7 @@ function Articles({pageTitle, articles}: ArticlesProps) {
     const ArticleTitle = pageTitle ? 'h2' : 'h1'
 
     return (
-        <div className={globalStyles.maxwidth_wrapper}>
+        <div className={ConcatClasses(globalStyles.maxwidth_wrapper, styles.container)}>
             {pageTitle && <h1 className={ConcatClasses(DISPLAY_SMALL, styles.title)}>
                 {pageTitle}
             </h1>}

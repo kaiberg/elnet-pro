@@ -1,4 +1,4 @@
-import {getLatestParks, getParks, Park} from "@/UI/Components/Parks";
+import {Park} from "@/UI/Components/Parks";
 import globalStyles from "@/app/styles.module.css"
 import React, {Suspense} from "react";
 import Icon from "@/UI/Components/Icon";
@@ -8,6 +8,7 @@ import Card from "@/UI/Components/Card";
 import {HEADLINE_MEDIUM, TITLE_MEDIUM} from "@/UI/Tokens/Typography";
 import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
 import {clamp, range} from "lodash";
+import {getLatestParks, getParks} from "@/Helpers/Networking/Parks";
 
 type ParksListProps = {
     title?: string
@@ -15,7 +16,7 @@ type ParksListProps = {
     loadingCards: number
 }
 
-const statusToIcon: { [key in OperationalStatus]: React.ReactNode } = {
+export const statusToIcon: { [key in OperationalStatus]: React.ReactNode } = {
     Operational: <span className={ConcatClasses(styles.status, styles.successs)}>
         Operational <Icon icon={'CheckCircle'} fill={'transparent'}/>
     </span>,

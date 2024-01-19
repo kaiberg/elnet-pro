@@ -21,7 +21,29 @@
     display: none;
 }
 
+.not_found_container {
+    margin-top: 2.5dvh;
+    height: 62.5dvh;
+}
+
+.not_found_desc {
+    margin-bottom: 2vh;
+    font-weight: var(--font-weight-extralight);
+}
+
+.go_back {
+    color: var(--color-primary);
+}
+
+.parkInfoContainer {
+    margin-bottom: 16px;
+}
+
 @media (--TABLET) {
+    .parkInfoContainer {
+        margin-bottom: initial;
+    }
+
     .chart {
         height: 480px;
     }
