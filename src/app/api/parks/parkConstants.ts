@@ -15,8 +15,8 @@ export const parkConstants: Park[] = [
     },
     {
         id: '3',
-        name: 'Solaris Heights Renewable Park',
-        description: 'Innovative park combining green spaces with solar power generation.',
+        name: 'Haslev Solcellepark',
+        description: 'Udnytter solenergi effektivt gennem et omhyggeligt designet netværk af solcellepaneler, og bidrager markant til regionens vedvarende energiforsyning.',
         status: OperationalStatus.Operational,
     },
     {

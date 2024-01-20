@@ -1,113 +1,120 @@
+.container {
+    width: fit-content;
+}
+
 .dialogActions {
     display: flex;
-    gap: 16px;
     justify-content: flex-end;
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
+    gap: 8px;
 }
 
-.overlay {
-    animation: animation-fade ease-in var(--animation-duration-medium3);
+.picker {
+    color: var(--color-on-background);
 }
 
-.container {
-    border-radius: 0;
-    margin: 0;
-    height: 100%;
-    width: 100%;
-}
-
-.dialogItem {
-    padding-bottom: 16px;
-}
-
-.input {
-    width: 100%;
-}
-
-@media (--TABLET) {
-    .container {
-        margin: 10dvh auto;
-        height: auto;
-        width: 50dvh;
-        border-radius: var(--shape-extra-large);
-    }
-}
-
-.react-aria-RangeCalendar {
-    width: fit-content;
-    max-width: 100%;
-    color: var(--text-color);
-}
-
-.react-aria-RangeCalendar header {
+.picker .group {
+    background-color: var(--color-background, white);
+    height: 50px;
+    padding-left: 12px;
+    padding-right: 12px;
     display: flex;
     align-items: center;
-    margin: 0 4px .5rem 4px;
+    width: fit-content;
+    min-width: 220px;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+    position: relative;
+    border: 2px solid var(--color-on-background);
+    border-radius: var(--shape-small);
+    background: var(--color-background);
+    white-space: nowrap;
 }
 
-.react-aria-RangeCalendar .react-aria-Heading {
+.picker[data-focus-within] .group {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -1px;
+}
+
+.picker [slot=start] + span {
+    padding: 0 4px;
+}
+.picker [slot=end] {
+    margin-right: 2px;
     flex: 1;
-    margin: 0;
-    text-align: center;
-    font-size: 1.375rem;
 }
-
-.react-aria-RangeCalendar .react-aria-Button {
-    width: 2rem;
-    height: 2rem;
+.picker .button {
+    background: transparent;
+    color: inherit;
+    forced-color-adjust: none;
+    border-radius: 4px;
+    border: none;
+    margin-left: auto;
+    width: 1.429rem;
+    height: 1.429rem;
     padding: 0;
+    font-size: 0.857rem;
+    box-sizing: content-box;
+    flex-shrink: 0;
+    position: sticky;
+    right: 0;
 }
 
-.react-aria-RangeCalendar table {
-    border-collapse: collapse;
-}
-
-.react-aria-RangeCalendar table td {
-    padding: 2px 0;
-}
-
-.react-aria-RangeCalendar .react-aria-CalendarCell {
-    width: 2.286rem;
-    line-height: 2.286rem;
-    text-align: center;
+.dateinput {
+    display: flex;
+    padding: 4px;
+    border: 1px solid var(--border-color);
     border-radius: 6px;
-    cursor: default;
-    outline: none;
+    background: var(--field-background);
+    width: fit-content;
+    min-width: 150px;
+    white-space: nowrap;
     forced-color-adjust: none;
 }
 
-.react-aria-RangeCalendar .react-aria-CalendarCell[data-outside-month] {
-    display: none;
+.error {
+    color: var(--color-error)
 }
 
-.react-aria-RangeCalendar .react-aria-CalendarCell[data-pressed] {
-    background: var(--gray-100);
+.picker .dateinput {
+    width: unset;
+    min-width: unset;
+    padding: unset;
+    border: unset;
+    outline: unset;
 }
 
-.react-aria-RangeCalendar .react-aria-CalendarCell[data-focus-visible] {
-    outline: 2px solid var(--highlight-background);
-    outline-offset: -2px;
+.popover {
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--color-surface-container-low);
+    padding: 16px;
+    color: var(--text-color);
+    outline: none;
+    max-width: 250px;
+    box-sizing: border-box;
 }
 
-.react-aria-RangeCalendar .react-aria-CalendarCell[data-selected] {
-    background: var(--highlight-background);
-    color: var(--highlight-foreground);
-    border-radius: 0;
+.popover[data-trigger=DateRangePicker] {
+    max-width: unset;
 }
 
-.react-aria-RangeCalendar .react-aria-CalendarCell[data-selected][data-focus-visible] {
-    outline-color: var(--highlight-foreground);
-    outline-offset: -3px;
+.picker .fielderror {
+    font-size: 12px;
+    color: var(--color-error);
 }
 
-.react-aria-RangeCalendar .react-aria-CalendarCell[data-selection-start] {
-    border-start-start-radius: 6px;
-    border-end-start-radius: 6px;
+.picker[data-error] .group {
+    border-color: color-mix(in hsl, var(--color-error), transparent 0%);
+    color: var(--color-error);
+}
+.picker [slot=description] {
+    font-size: 12px;
 }
 
-.react-aria-RangeCalendar .react-aria-CalendarCell[data-selection-end] {
-    border-start-end-radius: 6px;
-    border-end-end-radius: 6px;
+.header {
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    gap: 8px;
 }

@@ -11,16 +11,17 @@ type option = [string,string]
 export type SelectProps = {
     options: option[][]
     value: string,
+    valueFormatter?: (value: string) => React.ReactNode
     onValueChange: (newValue: string) => void
     triggerStyles?: string | undefined
 }
 
-function SelectMenu({options, value, onValueChange, triggerStyles, ...props} : SelectProps) {
+function SelectMenu({options, value, onValueChange, triggerStyles, valueFormatter = (v) => v, ...props} : SelectProps) {
     return (
         <Select.Root value={value} onValueChange={onValueChange}>
             <Select.Trigger className={ConcatClasses(styles.trigger, triggerStyles)} aria-label="Select Time period">
                 <Select.Value>
-                    {value}
+                    {valueFormatter(value)}
                 </Select.Value>
                 <Select.Icon className="SelectIcon">
                     <Icon icon={'ChevronDown'} fill={'transparent'}/>
