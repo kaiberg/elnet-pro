@@ -1,0 +1,50 @@
+.header {
+    display: flex;
+    justify-content: space-around;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table td, .table th {
+    padding: 1px 0;
+}
+
+.table tr, .table th {
+    min-width: 1rem;
+    min-height: 1rem;
+}
+
+.cell {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.cell[data-selected] {
+    background: var(--color-primary);
+}
+
+.cell span {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cell[data-selection-start] > span, .cell[data-selection-end] > span {
+    background: color-mix(in hsl, var(--color-primary), var(--color-background) 50%);
+    border-radius: 100%;
+}
+
+.cell[data-selection-start], tr td:first-child .cell  {
+    border-bottom-left-radius: 100%;
+    border-top-left-radius: 100%;
+}
+
+.cell[data-selection-end], tr td:last-child .cell  {
+    border-bottom-right-radius: 100%;
+    border-top-right-radius: 100%;
+}

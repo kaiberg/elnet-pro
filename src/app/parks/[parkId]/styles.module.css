@@ -31,6 +31,15 @@
     font-weight: var(--font-weight-extralight);
 }
 
+.error_container {
+    height: 45dvh;
+}
+
+.error_link {
+    margin-top: 2.5dvh;
+    display: block;
+}
+
 .go_back {
     color: var(--color-primary);
 }

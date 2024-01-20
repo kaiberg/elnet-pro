@@ -1,11 +1,11 @@
 'use server'
 
 import {cookies, headers} from "next/headers";
-import {cache} from "react"
-import {Delay} from "@/Helpers/Networking/Delay";
-import {OperationalStatus, Park} from "@/UI/Components/Parks/ParksTypes";
+import {Park} from "@/UI/Components/Parks/ParksTypes";
 import {revalidatePath} from "next/cache";
 import {baseURL} from "@/Helpers/Networking/global";
+import {Datapoint} from "@/app/api/parks/[parkId]/[interval]/ParkDataTypes";
+import {ParkDataErrors} from "@/Helpers/Networking/Parks/index";
 
 export async function refreshParkData() {
     const headersList = headers();
@@ -46,10 +46,28 @@ export async function getPark(parkId: string) : Promise<Park | undefined> {
     if(!parkId.length)
         return undefined;
     const Cookie = cookies().toString();
-    const response = await fetch(`${baseURL}/api/parks/${parkId}`, { headers: { Cookie} });
+    const response = await fetch(`${baseURL}/api/parks/${parkId}`, {
+        headers: { Cookie}, cache: "force-cache" }
+    );
     const json = await response.json();
 
     if(json.ok === false)
         return undefined;
     return json.park as Park;
+}
+
+export async function getParkData(parkId: string, interval: string) : Promise<Datapoint[] | ParkDataErrors> {
+    if(!parkId.length || !interval.length)
+        return ParkDataErrors.noData;
+    const Cookie = cookies().toString();
+    const response = await fetch(`${baseURL}/api/parks/${parkId}/${interval}`, {
+        headers: { Cookie }, cache: "force-cache"
+    })
+
+    const json = await response.json();
+    if(!json.ok)
+        return json.message === 'bad interval' ? ParkDataErrors.badInterval : ParkDataErrors.noData;
+    if(Array.isArray(json.data) && !json.data.length)
+        return ParkDataErrors.noData;
+    return json.data;
 }
