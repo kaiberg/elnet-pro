@@ -1,3 +1,6 @@
+import {Line, Bar} from "recharts";
+import {AxisOptions} from "@/UI/Charts/Composed/ReComposedChart";
+
 export const standardData = [
     {
         "name": "Page A",
@@ -49,5 +52,6 @@ export const coloursWheel = [
     'var(--color-secondary)',
     'var(--color-tertiary)',
     'var(--color-error)',
-    'var(--color-on-error)'
 ]
+
+export const getType = (type: AxisOptions['type']) => (type === 'line' ? Line : Bar) as React.ElementType;

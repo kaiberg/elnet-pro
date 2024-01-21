@@ -11,14 +11,6 @@ import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
 import {statusToIcon} from "@/UI/Components/ParksList/ParksList";
 import {Park} from "@/UI/Components/Parks";
 
-export enum preDefinedKeys {
-    hour = '1h',
-    fourHours = '4h',
-    day = '24h',
-    week = '7d',
-    month = '30d'
-}
-
 // 5 Minutes -> 5 * 60
 export const revalidate = 300
 
@@ -43,7 +35,8 @@ export async function generateMetadata(
     if(split.length === 2) time = split.join(' ')
 
     return {
-        title: `${park?.name} - ${time}` ?? 'Park not found',
+        title: `${park?.name} - ${time}` ?? 'Not found',
+        description: park?.description ?? 'This park could not be found'
     }
 }
 
@@ -75,7 +68,7 @@ async function PageData(PageParams: PageParams & { parkInfo: Park}) {
         <div className={globalStyles.maxwidth_wrapper} id={process.env.skipToContentHref}>
             <div className={styles.parkInfoContainer}>
                 <h1 className={HEADLINE_LARGE}>{parkInfo.name}</h1>
-                <p>{parkInfo.description}</p>
+                <p className={styles.desc}>{parkInfo.description}</p>
                 <p>{statusToIcon[parkInfo.status]}</p>
             </div>
             <ParkIdClient {...PageParams} parkData={parkData}/>

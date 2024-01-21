@@ -7,17 +7,28 @@ import {
     LineChart,
     ResponsiveContainer,
     Tooltip,
-    XAxis,
+    XAxis, XAxisProps,
     YAxis
 } from "recharts";
-import React, {useId} from "react";
+import React, {type SVGProps, useId} from "react";
 import styles from './styles.module.css'
 import {Props} from 'recharts/types/component/ResponsiveContainer'
 import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
 import {VisuallyHiddenClient} from "@/UI/Components/VisuallyHidden";
+import {AccessibleToolTip, Formatter, ValueFormatter} from "@/UI/Charts/AccessibleTooltip";
+import {AccessibilityInfo} from "@/UI/Charts/AccessibilityInfo";
+import {AxisOptions} from "@/UI/Charts/Line/ReLineChart";
+import {coloursWheel, standardData} from "@/UI/Charts/ChartGlobals";
 
-export type ReLineChartProps = {
-    classes?: string | undefined
+export type ReBarChartProps = {
+    classes?: string | undefined,
+    formatter?: Formatter,
+    leftAxisOptions?: AxisOptions,
+    xAxisOptions?: Omit<SVGProps<SVGElement>, 'scale'> & XAxisProps,
+    data?: any[],
+    legendFormatter?: ValueFormatter,
+    labelFormatter?: ValueFormatter
+
 } & Omit<Props, 'className' | 'children'>
 
 const data = [
@@ -66,38 +77,27 @@ const data = [
     }
 ]
 
-function AccessibleToolTip(props : any) {
-
-    console.log(props)
-    return (
-            <div role="status" aria-live={"assertive"}>
-                <h1>{props.label}</h1>
-                <p>2 results returned.</p>
-                <h1>Client of the week</h1>
-            </div>
-    )
-}
-
-export function ReBarChart({classes, ...props} : ReLineChartProps) {
+export function ReBarChart({classes, formatter, labelFormatter = (v) => v, legendFormatter = (v) => v, leftAxisOptions, xAxisOptions, data = standardData, ...props} : ReBarChartProps) {
     const id = useId();
 
     return (
         <>
-            <VisuallyHiddenClient id={`${id}-controls`}>
-                use the left arrow key to navigate to the previous datapoint, and the right to the next datapoint
-            </VisuallyHiddenClient>
+            <AccessibilityInfo id={`${id}-controls`}/>
             <ResponsiveContainer width={'100%'} height={400}
                                  className={ConcatClasses(styles.wrapper, classes)} {...props}>
                 <BarChart accessibilityLayer width={730} height={250} data={data}
                            margin={{top: 5, right: 30, left: 20, bottom: 5}} aria-describedby={`${id}-controls`}
                            aria-label={'chart'}>
                     <CartesianGrid strokeDasharray="3 3"/>
-                    <XAxis dataKey="name"/>
+                    <XAxis dataKey="name" {...xAxisOptions} />
                     <YAxis/>
-                    <Tooltip content={<AccessibleToolTip/>}/>
-                    <Legend/>
-                    <Bar dataKey="pv" fill="#8884d8" stroke={'var(--color-primary)'}/>
-                    <Bar dataKey="uv" fill="#82ca9d"/>
+                    <Tooltip content={<AccessibleToolTip formatter={formatter} labelFormatter={labelFormatter}/>}/>
+                    <Legend formatter={legendFormatter}/>
+                    {leftAxisOptions?.dataKeys.map((type, index) => {
+                        return (
+                            <Bar type="monotone" key={crypto.randomUUID()} stroke={coloursWheel[index%coloursWheel.length]} dataKey={type} fill={coloursWheel[index%coloursWheel.length]} />
+                        )
+                    })}
                 </BarChart>
             </ResponsiveContainer>
         </>

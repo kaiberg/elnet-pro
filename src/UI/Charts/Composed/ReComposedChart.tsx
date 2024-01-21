@@ -7,42 +7,66 @@ import {
     LineChart,
     ResponsiveContainer,
     Tooltip,
-    XAxis,
+    XAxis, XAxisProps,
     YAxis
 } from "recharts";
-import React, {useId} from "react";
+import Components from "recharts"
+import React, {type SVGProps, useId} from "react";
 import styles from './styles.module.css'
 import {Props} from 'recharts/types/component/ResponsiveContainer'
 import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
 import {VisuallyHiddenClient} from "@/UI/Components/VisuallyHidden";
-import {AccessibleToolTip} from "@/UI/Charts/AccessibleTooltip";
-import {standardData} from "@/UI/Charts/ChartGlobals";
+import {AccessibleToolTip, Formatter, ValueFormatter} from "@/UI/Charts/AccessibleTooltip";
+import {coloursWheel, getType, standardData} from "@/UI/Charts/ChartGlobals";
+import {AccessibilityInfo} from "@/UI/Charts/AccessibilityInfo";
+
+export type AxisOptions = {
+    type?: 'line' | 'bar',
+    dataKeys: string[]
+}
 
 export type ReLineChartProps = {
-    classes?: string | undefined
+    classes?: string | undefined,
+    leftAxisOptions? : AxisOptions,
+    rightAxisOptions? : AxisOptions,
+    xAxisOptions?: Omit<SVGProps<SVGElement>, 'scale'> & XAxisProps,
+    formatter?: Formatter,
+    legendFormatter?: ValueFormatter,
+    labelFormatter?: ValueFormatter
+    data?: any[]
 } & Omit<Props, 'className' | 'children'>
 
-export function ReComposedChart({classes, ...props} : ReLineChartProps) {
+export function ReComposedChart({classes, leftAxisOptions, rightAxisOptions, xAxisOptions, formatter, data, legendFormatter, labelFormatter, ...props} : ReLineChartProps) {
     const id = useId();
+    const TypeLeft = getType(leftAxisOptions?.type ?? 'bar')
+    const TypeRight = getType(rightAxisOptions?.type ?? 'line');
 
     return (
         <>
-            <VisuallyHiddenClient id={`${id}-controls`}>
-                use the left arrow key to navigate to the previous datapoint, and the right to the next datapoint
-            </VisuallyHiddenClient>
+            <AccessibilityInfo id={`${id}-controls`}/>
             <ResponsiveContainer width={'100%'} height={400}
                                  className={ConcatClasses(styles.wrapper, classes)} {...props}>
-                <ComposedChart accessibilityLayer width={730} height={250} data={standardData}
+                <ComposedChart accessibilityLayer width={730} height={250} data={data ?? standardData}
                            margin={{top: 5, right: 30, left: 20, bottom: 5}} aria-describedby={`${id}-controls`}
                            aria-label={'chart'}>
                     <CartesianGrid strokeDasharray="3 3"/>
-                    <XAxis dataKey="name"/>
+                    <XAxis dataKey="name" {...xAxisOptions} />
                     <YAxis yAxisId={'yaxis0'}/>
                     <YAxis yAxisId={'yaxis1'} orientation={'right'}/>
-                    <Tooltip content={<AccessibleToolTip/>}/>
-                    <Legend/>
-                    <Bar dataKey="pv" fill="#8884d8" stroke={'var(--color-primary)'} yAxisId={'yaxis0'} />
-                    <Line type="monotone" dataKey="uv" stroke="#ff7300" yAxisId={'yaxis1'} strokeDasharray="3 3" />
+                    <Tooltip content={<AccessibleToolTip formatter={formatter} labelFormatter={labelFormatter}/>}/>
+                    <Legend formatter={legendFormatter}/>
+                    {leftAxisOptions?.dataKeys.map((type, index) => {
+                        return (
+                            <TypeLeft key={crypto.randomUUID()} yAxisId={'yaxis0'} stroke={coloursWheel[index%coloursWheel.length]} dataKey={type} fill={coloursWheel[index%coloursWheel.length]} />
+                        )
+                    })}
+                    {rightAxisOptions?.dataKeys.map((type, index) => {
+                        return (
+                            <TypeRight key={crypto.randomUUID()} yAxisId={'yaxis1'} fill={'var(--color-on-background)'} dataKey={type} stroke={coloursWheel[coloursWheel.length+index-1%coloursWheel.length]} strokeDasharray="3 3" />
+                        )
+                    })}
+                    {/*<Bar dataKey="pv" fill="var(--color-primary)" stroke={'var(--color-outline)'} yAxisId={'yaxis0'} />*/}
+                    {/*<Line type="monotone" dataKey="uv" stroke='var(--color-outline)' yAxisId={'yaxis1'} strokeDasharray="3 3" />*/}
                 </ComposedChart>
             </ResponsiveContainer>
         </>
