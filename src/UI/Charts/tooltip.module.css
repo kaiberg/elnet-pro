@@ -1,3 +1,11 @@
 .tooltip {
     padding: 16px;
 }
+
+.title {
+    font-weight: var(--font-weight-regular);
+}
+
+.data {
+    font-weight: var(--font-weight-light);
+}

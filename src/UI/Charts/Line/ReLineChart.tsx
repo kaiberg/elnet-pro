@@ -1,13 +1,26 @@
-import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import React, {useId} from "react";
+import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, XAxisProps, YAxis} from "recharts";
+import React, {type SVGProps, useId} from "react";
 import styles from './styles.module.css'
 import {Props} from 'recharts/types/component/ResponsiveContainer'
 import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
 import {VisuallyHiddenClient} from "@/UI/Components/VisuallyHidden";
-import {AccessibleToolTip} from "@/UI/Charts/AccessibleTooltip";
+import {AccessibleToolTip, Formatter, ValueFormatter} from "@/UI/Charts/AccessibleTooltip";
+import {AccessibilityInfo} from "@/UI/Charts/AccessibilityInfo";
+import {coloursWheel, standardData} from "@/UI/Charts/ChartGlobals";
+
+export type AxisOptions = {
+    dataKeys: string[]
+}
 
 export type ReLineChartProps = {
-    classes?: string | undefined
+    classes?: string | undefined,
+    formatter?: Formatter,
+    leftAxisOptions?: AxisOptions,
+    rightAxisOptions?: AxisOptions,
+    xAxisOptions?: Omit<SVGProps<SVGElement>, 'scale'> & XAxisProps,
+    data?: any[],
+    legendFormatter?: ValueFormatter,
+    labelFormatter?: ValueFormatter
 } & Omit<Props, 'className' | 'children'>
 
 const data = [
@@ -52,30 +65,40 @@ const data = [
         "uv": 3490,
         "pv": 4300,
         "amt": 2100,
-        "test":500
+        "test": 500
     }
 ]
 
-export function ReLineChart({classes, ...props} : ReLineChartProps) {
+export function ReLineChart({classes, formatter, leftAxisOptions, rightAxisOptions, xAxisOptions, data = standardData,
+                                legendFormatter = (v) => v, labelFormatter = (v) => v, ...props}: ReLineChartProps) {
     const id = useId();
 
     return (
         <>
-            <VisuallyHiddenClient id={`${id}-controls`}>
-                use the left arrow key to navigate to the previous datapoint, and the right to the next datapoint
-            </VisuallyHiddenClient>
-        <ResponsiveContainer width={'100%'} height={400} className={ConcatClasses(styles.wrapper, classes)} {...props}>
-            <LineChart accessibilityLayer width={730} height={250} data={data}
-                       margin={{top: 5, right: 30, left: 20, bottom: 5}} aria-describedby={`${id}-controls`} aria-label={'chart'}>
-                <CartesianGrid strokeDasharray="3 3"/>
-                <XAxis dataKey="name"/>
-                <YAxis/>
-                <Tooltip content={<AccessibleToolTip/>}/>
-                <Legend/>
-                <Line type="monotone" dataKey="pv" stroke={'var(--color-primary)'}/>
-                <Line type="monotone" dataKey="uv"/>
-            </LineChart>
-        </ResponsiveContainer>
+            <AccessibilityInfo id={`${id}-controls`}/>
+            <ResponsiveContainer width={'100%'} height={400}
+                                 className={ConcatClasses(styles.wrapper, classes)} {...props}>
+                <LineChart accessibilityLayer width={730} height={250} data={data}
+                           margin={{top: 0, right: 0, left: 0, bottom: 0}} aria-describedby={`${id}-controls`}
+                           aria-label={'chart'}>
+                    <CartesianGrid strokeDasharray="3 3"/>
+                    <XAxis dataKey="name" {...xAxisOptions} />
+                    {leftAxisOptions !== undefined && <YAxis yAxisId={'yaxis0'}/> }
+                    {rightAxisOptions !== undefined && <YAxis yAxisId={'yaxis1'} orientation={'right'}/> }
+                    <Tooltip content={<AccessibleToolTip formatter={formatter} labelFormatter={labelFormatter}/>}/>
+                    <Legend formatter={legendFormatter}/>
+                    {leftAxisOptions?.dataKeys.map((type, index) => {
+                        return (
+                            <Line type="monotone" key={crypto.randomUUID()} yAxisId={'yaxis0'} stroke={coloursWheel[index%coloursWheel.length]} dataKey={type} fill={coloursWheel[index%coloursWheel.length]} />
+                        )
+                    })}
+                    {rightAxisOptions?.dataKeys.map((type, index) => {
+                        return (
+                            <Line type="monotone" key={crypto.randomUUID()} yAxisId={'yaxis1'} fill={'var(--color-on-background)'} dataKey={type} stroke={coloursWheel[index+1%coloursWheel.length]} strokeDasharray="3 3" />
+                        )
+                    })}
+                </LineChart>
+            </ResponsiveContainer>
         </>
 
     )

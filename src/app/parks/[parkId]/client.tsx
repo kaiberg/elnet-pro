@@ -14,18 +14,20 @@ import {ReComposedChart} from "@/UI/Charts/Composed/ReComposedChart";
 import {ReRadialChart} from "@/UI/Charts/Radial/ReRadialChart";
 import {ReBarChart} from "@/UI/Charts/Bar/ReBarChart";
 import TimePicker from "@/app/parks/[parkId]/DatePickerDialog";
-import {PageParams, preDefinedKeys} from "@/app/parks/[parkId]/page";
+import {PageParams} from "@/app/parks/[parkId]/page";
 import Card from "@/UI/Components/Card";
 import {ConcatClasses} from "@/Helpers/Formatting/ConcatClasses";
 import * as Select from "@radix-ui/react-select";
 import {SelectItemProps} from "@radix-ui/react-select";
 import {Park} from "@/UI/Components/Parks";
-import {Datapoint} from "@/app/api/parks/[parkId]/[interval]/ParkDataTypes";
+import {Datapoint, Occurrences} from "@/app/api/parks/[parkId]/[interval]/ParkDataTypes";
 import Link from "next/link";
+import {preDefinedKeys} from "@/app/parks/[parkId]/Separator";
+import dayjs from "dayjs";
 
 export type ClientParams = {
     parkInfo: Park,
-    parkData: Datapoint[] | ParkDataErrors
+    parkData: {data: Datapoint[], occurrences: Occurrences} | ParkDataErrors
 }
 
 const preDefinedOptions: { [key in preDefinedKeys]: string } = {
@@ -59,13 +61,20 @@ function Container({title, children, classes}: {
     children: React.ReactNode
 }) {
     return (
-        <Card classes={classes}>
-            {title && <h1 className={HEADLINE_SMALL}>
+        <Card classes={classes ?? styles.wrapper_no_title}>
+            {title && <h1 className={ConcatClasses(HEADLINE_SMALL, styles.title)}>
                 {title}
             </h1>}
             {children}
         </Card>
     )
+}
+
+const weatherMap = {
+    0: 'Sunny',
+    1: 'Raining',
+    2: 'Partly cloudy',
+    3: 'Cloudy',
 }
 
 
@@ -74,6 +83,8 @@ export function ParkIdClient({params: {parkId}, searchParams: {time}, parkInfo, 
     const router = useRouter();
     const [showDialog, setShowDialog] = React.useState(false);
     const [timeA, setTimeRaw] = React.useState(isValidDateOption(time) ? time : '24h');
+    const occurrences = typeof parkData === 'object' && 'occurrences' in parkData ?
+        parkData.occurrences.reduce((a, {count}) => a + count, 0) : 0
 
     const setTime = (value: string) => {
         setTimeRaw(value);
@@ -82,56 +93,94 @@ export function ParkIdClient({params: {parkId}, searchParams: {time}, parkInfo, 
 
     return (
         <>
-                <Container classes={styles.filter}>
-                    <SelectMenu triggerStyles={styles.border} options={[
-                        Object.entries(preDefinedOptions),
-                        Object.entries(customRangeOptions)
-                    ]} value={timeA in preDefinedOptions ? timeA : 'custom'} onValueChange={(newValue) => {
-                        if (newValue === 'custom') {
-                            console.log('datepicker');
-                            setShowDialog(true);
-                            return;
-                        }
+            <Container classes={styles.filter}>
+                <SelectMenu triggerStyles={styles.border} options={[
+                    Object.entries(preDefinedOptions),
+                    Object.entries(customRangeOptions)
+                ]} value={timeA in preDefinedOptions ? timeA : 'custom'} onValueChange={(newValue) => {
+                    if (newValue === 'custom') {
+                        console.log('datepicker');
+                        setShowDialog(true);
+                        return;
+                    }
 
-                        if (isValidDateOption(newValue))
-                            setTime(newValue);
+                    if (isValidDateOption(newValue))
+                        setTime(newValue);
 
-                    }} valueFormatter={(value) => timeA in preDefinedOptions ? preDefinedOptions[timeA as keyof typeof preDefinedOptions] : 'Custom'}/>
-                    <Button buttonType={'none'} onClick={() => {
-                        refreshParkData();
-                    }}>
-                        <Icon icon={'RefreshCw'} fill={'transparent'}/>
-                        <VisuallyHiddenClient>Refresh park data</VisuallyHiddenClient>
-                    </Button>
-                </Container>
+                }}
+                            valueFormatter={(value) => timeA in preDefinedOptions ? preDefinedOptions[timeA as keyof typeof preDefinedOptions] : 'Custom'}/>
+                <Button buttonType={'none'} onClick={() => {
+                    refreshParkData();
+                }}>
+                    <Icon icon={'RefreshCw'} fill={'transparent'}/>
+                    <VisuallyHiddenClient>Refresh park data</VisuallyHiddenClient>
+                </Button>
+            </Container>
 
             {parkData === ParkDataErrors.noData || parkData === ParkDataErrors.badInterval ?
-                <ParkDataError error={parkData as ParkDataErrors}/>
-                :
-                <div className={styles.container}>
-                    <Container classes={styles.wrapper} title={'santiago'}>
-                        <ReLineChart classes={styles.chart}/>
-                    </Container>
-                    <Container classes={styles.wrapper} title={'temparature'}>
-                        <ReComposedChart classes={styles.chart}/>
-                    </Container>
-                    <Container classes={styles.wrapper} title={'sky% change'}>
-                        <ReRadialChart classes={styles.chart}/>
-                    </Container>
-                    <Container classes={styles.wrapper} title={'weather catalog'}>
-                        <ReBarChart classes={styles.chart}/>
-                    </Container>
-                    <Container classes={styles.wrapper} title={'wind speed'}>
-                        <ReLineChart classes={styles.chart}/>
-                    </Container>
-                    <Container classes={styles.wrapper} title={'required battery amount'}>
-                        <ReLineChart classes={styles.chart}/>
-                    </Container>
+                <ParkDataError error={parkData as ParkDataErrors}/> :
+                <div>
+                    <div>
+                        <h2 className={HEADLINE_MEDIUM}>Weather</h2>
+                        <div className={styles.container}>
+                            <Container classes={styles.wrapper} title={'Conditions'}>
+                                <ReLineChart classes={styles.chart} formatter={(name, value) => name === 'temperature' ?
+                                    <>Temperature: {value} <span aria-hidden={"true"}>(°C)</span><VisuallyHiddenClient>celsius</VisuallyHiddenClient></> :
+                                    <>Wind speed: {value} <span aria-hidden={"true"}>(m/s)</span> <VisuallyHiddenClient>meters
+                                        per second</VisuallyHiddenClient></>}
+                                    data={parkData.data}
+                                             leftAxisOptions={{dataKeys: ['temperature']}}
+                                             rightAxisOptions={{dataKeys: ['windSpeed']}}
+                                             xAxisOptions={{dataKey: 'time', tickFormatter: (v) => dayjs(v).format('DD-HH:mm'), interval: Math.floor(parkData.data.length/5)}}
+                                             legendFormatter={(v) => v === 'temperature' ? 'Temperature' : 'Wind speed'}
+                                             labelFormatter={(v) => new Date(v).toLocaleString()}
+                                />
+                            </Container>
+                            <Container classes={styles.wrapper} title={'Distribution'}>
+                                <ReBarChart classes={styles.chart} formatter={(_, value) =>
+                                    <>{value} occurrenes ({((value/occurrences)*100).toFixed(1)} <span aria-hidden={"true"}>%)</span><VisuallyHiddenClient>percent</VisuallyHiddenClient></>}
+                                            data={parkData.occurrences}
+                                            xAxisOptions={{dataKey: 'weather', tickFormatter: (v) => weatherMap[v as keyof typeof weatherMap]}}
+                                            leftAxisOptions={{dataKeys: ['count']}}
+                                            legendFormatter={(v) => 'Count'}
+                                            labelFormatter={(v) => weatherMap[v as keyof typeof weatherMap]}
+                                />
+                            </Container>
+                        </div>
+                    </div>
+
+                    {/*<Container classes={styles.wrapper} title={'Distribution Radial Bar'}>*/}
+                    {/*    <ReRadialChart classes={styles.chart}/>*/}
+                    {/*</Container>*/}
+                    <div>
+                        <h2 className={HEADLINE_MEDIUM}>Power</h2>
+                        <div className={styles.container}>
+                            <Container classes={styles.wrapper} title={'Predictions'}>
+                                <ReComposedChart classes={styles.chart} formatter={(name, value) => name === 'power' ?
+                                    <>Power: {value} <span aria-hidden={"true"}>(KwH)</span><VisuallyHiddenClient>kilowatt hours</VisuallyHiddenClient></> :
+                                    <>Sky: {value} <span aria-hidden={"true"}>(%)</span><VisuallyHiddenClient>percent</VisuallyHiddenClient></>}
+                                                 xAxisOptions={{dataKey: 'time', tickFormatter: (v) => dayjs(v).format('DD-HH:mm'), interval: Math.floor(parkData.data.length/5)}}
+                                                 leftAxisOptions={{
+                                                     dataKeys: ['power'],
+                                                 }}
+                                                 rightAxisOptions={{
+                                                     dataKeys: ['skyPercent'],
+                                                 }}
+                                                 data={parkData.data}
+                                                 legendFormatter={(v) => v === 'power' ? 'Power' : 'Sky Percent'}
+                                                 labelFormatter={(v) => new Date(v).toLocaleString()}
+                                />
+                            </Container>
+                        </div>
+                    </div>
                 </div>
             }
 
+            {process.env.NODE_ENV !== 'production' && false && <pre>
+                    {JSON.stringify(parkData, null, 2)}
+                </pre>}
 
-            {showDialog && <TimePicker onClose={() => setShowDialog(false)} onSubmit={(start,end) => {
+            {showDialog && <TimePicker onClose={() => setShowDialog(false)} onSubmit={(start, end) => {
                 setTime(`${start}_${end}`);
                 setShowDialog(false);
             }}/>}
@@ -140,13 +189,13 @@ export function ParkIdClient({params: {parkId}, searchParams: {time}, parkInfo, 
     )
 }
 
-function ParkDataError({error}:{error: ParkDataErrors}) {
+function ParkDataError({error}: { error: ParkDataErrors }) {
     const headerText = error === ParkDataErrors.noData ? 'No Data' : 'Bad Interval';
-    const bodyText : React.ReactNode = error === ParkDataErrors.noData ?
-            'there is no data in this selected interval.' :
-            'the chosen time interval is not allowed.';
+    const bodyText: React.ReactNode = error === ParkDataErrors.noData ?
+        'there is no data in this selected interval.' :
+        'the chosen time interval is not allowed.';
 
-    return(
+    return (
         <div className={styles.error_container}>
             <h2 className={HEADLINE_MEDIUM}>{headerText}</h2>
             <p className={styles.error_container}>
@@ -154,7 +203,7 @@ function ParkDataError({error}:{error: ParkDataErrors}) {
                 <Link href={'/'} className={ConcatClasses(styles.go_back, styles.error_link)}>Go back home</Link>
             </p>
         </div>
-)
+    )
 }
 
 // eslint-disable-next-line react/display-name
