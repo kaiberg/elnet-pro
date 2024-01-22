@@ -89,12 +89,12 @@ export function ReLineChart({classes, formatter, leftAxisOptions, rightAxisOptio
                     <Legend formatter={legendFormatter}/>
                     {leftAxisOptions?.dataKeys.map((type, index) => {
                         return (
-                            <Line type="monotone" key={crypto.randomUUID()} yAxisId={'yaxis0'} stroke={coloursWheel[index%coloursWheel.length]} dataKey={type} fill={coloursWheel[index%coloursWheel.length]} />
+                            <Line dot={false} type="monotone" key={crypto.randomUUID()} yAxisId={'yaxis0'} stroke={coloursWheel[index%coloursWheel.length]} dataKey={type} fill={coloursWheel[index%coloursWheel.length]} />
                         )
                     })}
                     {rightAxisOptions?.dataKeys.map((type, index) => {
                         return (
-                            <Line type="monotone" key={crypto.randomUUID()} yAxisId={'yaxis1'} fill={'var(--color-on-background)'} dataKey={type} stroke={coloursWheel[index+1%coloursWheel.length]} strokeDasharray="3 3" />
+                            <Line dot={false} type="monotone" key={crypto.randomUUID()} yAxisId={'yaxis1'} fill={'var(--color-on-background)'} dataKey={type} stroke={coloursWheel[index+1%coloursWheel.length]} strokeDasharray="3 3" />
                         )
                     })}
                 </LineChart>

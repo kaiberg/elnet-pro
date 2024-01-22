@@ -25,6 +25,7 @@
     "react-hook-form": "^7.48.2",
     "react-remove-scroll": "^2.5.7",
     "recharts": "^2.10.2",
+    "seedrandom": "^3.0.5",
     "styled-components": "^6.1.0",
     "swr": "^2.2.4",
     "zod": "^3.22.4"
@@ -37,6 +38,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/recharts": "^1.8.29",
+    "@types/seedrandom": "^3.0.8",
     "autoprefixer": "^10",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",

@@ -5,6 +5,8 @@ import {z} from "zod";
 import {TimePickerSchema} from "@/app/parks/[parkId]/DatePickerDialog";
 import {Datapoint, Occurrences, WeatherType} from "@/app/api/parks/[parkId]/[interval]/ParkDataTypes";
 import dayjs from "dayjs";
+import seedrandom from "seedrandom"
+import {downsample} from "@/Helpers/Processing/downsample";
 
 type ParkDataProps = {
     params: {
@@ -46,76 +48,11 @@ export async function GET(request: NextRequest, {params: {parkId, interval}}: Pa
             data: []
         })
 
+    const data = generateData(interval);
     return NextResponse.json<DataBody>({
         ok: true,
-        occurrences: [
-            {
-                weather: WeatherType.SUNNY,
-                count: 6
-            },
-            {
-                weather: WeatherType.RAINING,
-                count: 12
-            },
-            {
-                weather: WeatherType.PARTLY_CLOUDY,
-                count: 156
-            },
-            {
-                weather: WeatherType.CLOUDY,
-                count: 6
-            }
-        ],
-        data: [
-            {
-                time: dayjs().valueOf(),
-                parkId,
-                temperature: 5,
-                skyPercent: 6,
-                windSpeed: 5,
-                power: 3
-            },
-            {
-                time: dayjs().add(120, 'second').valueOf(),
-                parkId,
-                temperature: 6,
-                skyPercent: 60,
-                windSpeed: 5,
-                power: 2
-            },
-            {
-                time: dayjs().add(120 * 2, 'second').valueOf(),
-                parkId,
-                temperature: 7,
-                skyPercent: 21,
-                windSpeed: 5,
-                power: 11
-            },
-            {
-                time: dayjs().add(120 * 3, 'second').valueOf(),
-                parkId,
-                temperature: 8,
-                skyPercent: 33,
-                windSpeed: 5,
-                power: 20
-            },
-            {
-                time: dayjs().add(120 * 4, 'second').valueOf(),
-                parkId,
-                temperature: 9,
-                skyPercent: 44,
-                windSpeed: 5,
-                power: 156
-            },
-            {
-                time: dayjs().add(120 * 5, 'second').valueOf(),
-                parkId,
-                temperature: 10,
-                skyPercent: 62,
-                windSpeed: 5,
-                power: 17
-            }
-        ]
+        occurrences: data.occurrences,
+        data: data.data
     })
 }
 
@@ -138,4 +75,108 @@ function validateInterval(interval: string): boolean {
     }
 
     return true
+}
+
+function generateData(interval: string, bucketSize = 1000): Omit<DataBody, 'ok'> {
+    const {start, end} = getInterval(interval);
+    const {data, occurrences} = getData(start, end);
+    return {data: downsample(data, 'time', 'power', 100), occurrences};
+}
+
+function getInterval(interval: string): { start: dayjs.Dayjs, end: dayjs.Dayjs } {
+    if (Object.values(preDefinedKeys).includes(interval as preDefinedKeys)) {
+        return {start: getStartDateFromPredefined(interval), end: dayjs()}
+    }
+
+    const fail = {start: dayjs(), end: dayjs()}
+    const split = interval.split('_');
+    if (split.length !== 2 || !split[0] || !split[1])
+        return fail
+    const start = dayjs(split[0]), end = dayjs(split[1]);
+    if (!start.isValid() || !end.isValid())
+        return fail;
+    return {start, end}
+}
+
+function getStartDateFromPredefined(interval: string): dayjs.Dayjs {
+    const day = dayjs();
+    switch (interval) {
+        case '1h':
+            return day.add(-1, 'hour')
+        case '4h':
+            return day.add(-4, 'hour')
+        case '24h':
+            return day.add(-1, 'day')
+        case '7d':
+            return day.add(-7, 'day')
+        case '30d':
+            return day.add(-30, 'day')
+        default:
+            return day;
+    }
+}
+
+function getData(start: dayjs.Dayjs, end: dayjs.Dayjs): Omit<DataBody, 'ok'> {
+    const data: DataBody['data'] = [];
+    const occurrences: DataBody['occurrences'] = [
+        {
+            weather: WeatherType.SUNNY,
+            count: 0
+        },
+        {
+            weather: WeatherType.RAINING,
+            count: 0
+        },
+        {
+            weather: WeatherType.PARTLY_CLOUDY,
+            count: 0
+        },
+        {
+            weather: WeatherType.CLOUDY,
+            count: 0
+        }
+    ]
+
+    const rng = seedrandom('elnet pro random seed')
+
+    for (let day = 2; day > 0; day--) {
+        const startDate = dayjs().subtract(day, 'day');
+
+        for (let i = 0; i < 1000; i++) {
+            const time = startDate.add(i * 120, 'second');
+            if(!time.isAfter(start) || !time.isBefore(end)) {
+                for (let i = 0; i < 4; i++)
+                    rng();
+                continue;
+            }
+
+            const temperature = Math.floor(rng() * 15) + 5;
+            const skyPercent = Math.floor(rng() * 100);
+            const windSpeed = Math.floor(rng() * 10);
+            let weather;
+            if (temperature > 12)
+                occurrences[0].count++
+            else if (temperature < 8)
+                occurrences[1].count++
+            else if (skyPercent < 30)
+                occurrences[2].count++
+            else
+                occurrences[3].count++
+
+            const basePower = Math.floor(rng() * 50) + 1;
+            const power = weather === WeatherType.SUNNY ? basePower * 3 : basePower;
+
+            const dataPoint = {
+                time: time.valueOf(),
+                temperature,
+                skyPercent,
+                windSpeed,
+                power
+            };
+
+            data.push(dataPoint);
+        }
+    }
+
+    return {data, occurrences};
 }

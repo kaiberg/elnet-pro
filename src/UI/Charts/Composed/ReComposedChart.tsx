@@ -57,12 +57,12 @@ export function ReComposedChart({classes, leftAxisOptions, rightAxisOptions, xAx
                     <Legend formatter={legendFormatter}/>
                     {leftAxisOptions?.dataKeys.map((type, index) => {
                         return (
-                            <TypeLeft key={crypto.randomUUID()} yAxisId={'yaxis0'} stroke={coloursWheel[index%coloursWheel.length]} dataKey={type} fill={coloursWheel[index%coloursWheel.length]} />
+                            <TypeLeft dot={false} key={crypto.randomUUID()} yAxisId={'yaxis0'} stroke={coloursWheel[index%coloursWheel.length]} dataKey={type} fill={coloursWheel[index%coloursWheel.length]} />
                         )
                     })}
                     {rightAxisOptions?.dataKeys.map((type, index) => {
                         return (
-                            <TypeRight key={crypto.randomUUID()} yAxisId={'yaxis1'} fill={'var(--color-on-background)'} dataKey={type} stroke={coloursWheel[coloursWheel.length+index-1%coloursWheel.length]} strokeDasharray="3 3" />
+                            <TypeRight dot={false} key={crypto.randomUUID()} yAxisId={'yaxis1'} fill={'var(--color-on-background)'} dataKey={type} stroke={coloursWheel[coloursWheel.length+index-1%coloursWheel.length]} strokeDasharray="3 3" />
                         )
                     })}
                     {/*<Bar dataKey="pv" fill="var(--color-primary)" stroke={'var(--color-outline)'} yAxisId={'yaxis0'} />*/}
