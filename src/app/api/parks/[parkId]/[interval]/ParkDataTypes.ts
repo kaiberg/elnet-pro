@@ -4,7 +4,6 @@ export enum WeatherType {
 
 export type Datapoint = {
     time: number
-    parkId: string
     temperature: number // celsius
     skyPercent: number // %
     windSpeed: number, // m/s
