@@ -1,4 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Elnet Pro
+
+Elnet Pro is a sophisticated data analysis platform designed specifically for solar parks within a solar grid. This platform excels in visualizing crucial metrics, providing insightful data on energy production and consumption. One of its key features is its predictive capability, allowing users to anticipate the energy needs at specific data points based on environmental conditions, particularly cloud cover. This predictive functionality enhances the efficiency of solar energy management by offering valuable insights into energy requirements under varying conditions.
+
+## Screenshots
+
+Loading:
+
+![Loading](img/loading.gif)
+
+Home page:
+
+![Home page light mode](img/overview_light.png)
+![Home page dark mode](img/overview_dark.png)
+
+Park view:
+
+![Solar park](img/park.jpeg)
+![Datapoint](img/prediction.png)
+
+Login:
+
+![Login](img/login.png)
+![Server side error](img/login_server.png)
+![Client side error](img/login_client.png)
+
+Privacy
+
+![Privacy policy](img/privacy.png)
+
+Mobile navigation
+
+![Navigation](img/mobile_modal.png)
 
 ## Getting Started
 
@@ -18,19 +50,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Thank you
 
-## Learn More
+| Jetbrains                                                                                                                                                                                                               |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [![Copyright © 2000-2024 JetBrains s.r.o. JetBrains and the JetBrains logo are registered trademarks of JetBrains s.r.o.](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)][jetbrains] |
+| Product subscriptions provided by JetBrains                                                                                                                                                                             |
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[jetbrains]: https://jb.gg/OpenSourceSupport
